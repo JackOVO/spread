@@ -1,0 +1,14 @@
+node_modules/
+public/components
+.nyc_output
+.sass-cache
+.idea
+.idea/
+.DS_Store
+node_modules/
+.project
+dist
+dist/*
+src/config/*.tmp
+src/config/env.js
+npm-debug.log
