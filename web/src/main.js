@@ -24,9 +24,22 @@ const RouterConfig = {
 const router = new VueRouter(RouterConfig);
 
 router.beforeEach((to, from, next) => {
-    iView.LoadingBar.start();
-    Util.title(to.meta.title);
-    next();
+  iView.LoadingBar.start();
+  Util.title(to.meta.title);
+
+  // sessionStorage.username = data.username;
+  // sessionStorage.role = data.role;
+  if (!sessionStorage.account_id && to.name !== 'signin') {
+    next({ name: 'signin' });
+  } else if (sessionStorage.account_id && to.name === 'signin') {
+    next({ name: 'home_index' });
+  } else {
+    if (to.access) {
+      next({ name: 'signin' });
+    } else {
+      next();
+    }
+  }
 });
 
 router.afterEach(() => {

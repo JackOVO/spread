@@ -14,7 +14,6 @@
     <Card class="wrapper">
       <img class="logo" src="src/styles/images/logo.svg" alt="logo">
       <Form ref="form" label-position="top" :model="form" :rules="rules">
-
         <FormItem prop="username">
           <Input v-model="form.username" placeholder="请输入用户名称...">
             <Icon type="ios-person-outline" slot="prepend"></Icon>
@@ -61,9 +60,18 @@
 
         this.$refs.form.validate(valid => {
           if (valid) {
-            Util.ajax.post('/signin', that.form).then(info => {
+            Util.ajax.post('/signin', that.form).then(({data}) => {
+              if (data.status !== 'ACTIVE') {
+                sessionStorage.clear();
+                return this.$Message.error('账户已停用请联系管理员!');
+              }
+
+              sessionStorage.account_id = data._id;
+              sessionStorage.username = data.username;
+              sessionStorage.role = data.role;
+
               this.$Message.success('登录成功.');
-              this.$router.push({name: 'index'});
+              this.$router.push({name: 'otherRouter'});
             }).catch(err => {
               this.$Message.error('用户名或密码错误!');
             });

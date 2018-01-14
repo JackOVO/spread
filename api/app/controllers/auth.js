@@ -15,14 +15,24 @@ router.post('/signin', (req, res, next) => {
       res.json(err.status || 500, {errorMsg: err.message});
     }
 
+    if (!account) {
+      return res.json(500, {errorMsg: '用户名或密码错误!'});
+    }
+
     account.comparePwd(_account.password, (err, isMatch) => {
       if(err) {
         res.json(err.message || 500, {errorMsg: err.message})
       } else if (isMatch) {
-        req.session.account = account;
-        res.json({username: account.username, _id: account._id});
+
+        res.json({
+          _id: account._id,
+          username: account.username,
+          phone: account.phone,
+          role: account.role,
+          status: account.status
+        });
       } else {
-        res.json(500, {errorMsg: '用户名或密码错误!'})
+        res.json(500, {errorMsg: '用户名或密码错误!'});
       }
     })
   });

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title><%- title %></title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge, chrome=1">
+  <meta name="description" content="<%- content %>">
+
+  <link rel="shortcut icon" type="image/x-icon" href="">
+  <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta.3/css/bootstrap-grid.min.css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding-top: 50px;
+      font-size: 14px;
+      font-weight: bold;
+      background-color: #000;
+      background-image: url('/img/body_bg.png');
+      background-position: top center;
+      background-attachment: fixed;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    h1 {
+      margin: 0;
+      padding: 10px 0;
+      font: 1.6em;
+    }
+    input[type="text"], select {
+      width: 25%;
+      height: 30px;
+      padding: 0 6px;
+      font-size: 1em;
+      line-height: 30px;
+      color: #222222;
+      border-radius: 2px;
+      border: 1px solid #C3C9D0;
+    }
+    select { max-width: 260px; }
+    button {
+      display: inline-block;
+      line-height: 2.3;
+      padding: 0 55px;
+      background-color: rgb(27, 28, 33);
+      font-size: 1.167em;
+      color: rgb(255, 255, 255);
+      border-width: 0;
+      border-color: rgba(255, 255, 255, 0);
+      box-shadow: 0 0 1px rgba(0,0,0,0.2);
+      cursor: pointer;
+    }
+    button:hover {
+      box-shadow: 0 0 1px rgba(0,0,0,0.2); */
+    }
+
+    #form {
+      padding: 20px 0;
+    }
+    form .label {
+      margin-bottom: 10px;
+    }
+    form .label.required::after {
+      content: " *";
+      color: red;
+    }
+    form .img-radio {
+      display: inline-block;
+      width: 160px;
+      padding: 10px;
+      margin-right: 10px;
+      text-align: center;
+      border: 1px solid #c3c9d0;
+      cursor: pointer;
+    }
+    form > .form-group {
+      margin-bottom: 30px;
+    }
+    form > .form-group.mb0 {
+      margin-bottom: 0;
+    }
+
+    form .img-radio:hover,
+    form .img-radio:active,
+    form .img-radio.hover {
+      border-color: #009AFF
+    }
+
+    form .img-radio > img {
+      width: 140px;
+    }
+    #addr-group select {
+      width: 25%;
+    }
+    #addr-group input[type="text"] {
+      width: 100%;
+      margin-top: 5px;
+    }
+
+    .slot {
+      margin-left: -25px;
+      margin-right: -25px;
+      border-bottom: 1px solid #c3c9d0;
+    }
+
+    .header {
+      padding: 11px 30px;
+      min-height: 44px;
+    }
+
+    .container {
+      padding-left: 25px;
+      padding-right: 25px;
+      background-color: #fff;
+    }
+    @media (min-width: 768px) {
+      .container {
+        width: 100%;
+        max-width: 100%;
+      }
+    }
+
+    .desc {
+      text-align: center;
+    }
+    .desc p {
+      margin: 10px;
+    }
+    .desc > strong {
+      font-size: 1.5em;
+    }
+
+    .img-list > img {
+      width: 100%;
+      padding: 10px 0;
+    }
+
+    .hint {
+      margin-bottom: 40px;
+    }
+    .footer {
+      text-align: center;
+      padding: 30px 0 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header"></div>
+    <div class="slot"></div>
+    <div class="row">
+      <h1 class="col-md-12"><%- title %></h1>
+    </div>
+    <div class="row">
+      <div class="desc col-md-12">
+        <strong>
+          <p>男女同款 - 正品保障</p>
+          <p>试穿品仅剩 <span style="color: red;">21</span> 名额 即将关闭平台</p>
+        </strong>
+        <p>明星必备-城市运动套装</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="img-list col-md-12">
+        <img src="/img/img_1.png" alt="">
+        <img src="/img/img_2.png" alt="">
+        <img src="/img/img_3.png" alt="">
+        <img src="/img/img_4.png" alt="">
+        <img src="/img/img_5.png" alt="">
+        <img src="/img/img_6.png" alt="">
+        <img src="/img/size_control.png" alt="">
+        <img src="/img/explain.png" alt="">
+      </div>
+    </div>
+    <div class="slot"></div>
+    <div class="row">
+      <div class="col-md-12">
+        <form id="form">
+          <div id="color-group" class="form-group">
+            <div class="label required">选择颜色</div>
+            <label class="img-radio" for="radio1">
+              <img src="/img/input_color1.png" alt="">
+              <input id="radio1" name="color" value="白色" type="radio" checked>
+              <span>免费领取价值598元阿迪套装(白色)</span>
+            </label>
+            <label class="img-radio" for="radio2">
+              <img src="/img/input_color2.png" alt="">
+              <input id="radio2" name="color" value="黑色"  type="radio">
+              <span>免费领取价值598元阿迪套装(黑色)</span>
+            </label>
+          </div>
+
+          <div id="style-group" class="form-group">
+            <div class="label required">选择款式</div>
+            <label for="radio3">
+              <input id="radio3" name="style" value="男款" type="radio" checked>男款
+            </label>
+            <label for="radio4">
+              <input id="radio4" name="style" value="女款" type="radio">女款
+            </label>
+          </div>
+
+          <div id="size-group" class="form-group">
+            <div class="label required">选择尺码</div>
+            <select name="size">
+              <option value="">请选择</option>
+              <option value="S">S</option>
+              <option value="M">M</option>
+              <option value="L">L</option>
+              <option value="XL">XL</option>
+              <option value="XXL">XXL</option>
+              <option value="XXXL">XXXL</option>
+              <option value="XXXXL">XXXXL</option>
+            </select>
+          </div>
+
+          <div id="addr-group" class="form-group">
+            <div class="label required">地址</div>
+            <select id="prov-select" name="prov">
+              <option value="">- 省/自治区/直辖市 -</option>
+            </select>
+            <select id="city-select" name="city">
+              <option value="">- 市 -</option>
+            </select>
+            <select id="region-select" name="region">
+              <option value="">- 区/县 -</option>
+            </select>
+            <input name="address" style="width: 100%;" type="text" placeholder="详细地址...">
+          </div>
+
+          <div id="name-group" class="form-group">
+            <div class="label required">姓名</div>
+            <input name="name" type="text" placeholder="请填写您的姓名...">
+          </div>
+
+          <div id="phone-group" class="form-group">
+            <div class="label required">电话</div>
+            <input name="phone" type="text" placeholder="请填写您的电话...">
+          </div>
+
+          <div id="cjk-group" class="form-group">
+            <div class="label">备注你所需要的充值卡类型（附赠在您包裹内）</div>
+            <p>
+              <label for="radio5">
+                <input name="cjk" id="radio5" type="radio" value="移动50">
+                移动50元充值卡
+              </label>
+            </p>
+            <p>
+              <label for="radio6">
+                <input name="cjk" id="radio6" type="radio" value="联通50">
+                联通50元充值卡
+              </label>
+            </p>
+            <p>
+              <label for="radio7">
+                <input name="cjk" id="radio7" type="radio" value="电信50">
+                电信50元充值卡
+              </label>
+            </p>
+          </div>
+
+          <div id="yf-group" class="form-group">
+            <div class="label required">运费自理</div>
+            <label for="radio-yf">
+              <input id="radio-yf" name="yf" value="运费自理" type="radio" checked>
+              请接受运费自理（运费在19-29元之间，收到货支付给快递员即可，超过29元可拒收，七天内无理由退换！）
+            </label>
+          </div>
+        </form>
+
+        <div class="hint">
+          温馨提示：阿.迪公司为您承担费用方式！
+          <div style="color: red;">签收后拍照反馈，好评宣传我们会以红包形式给您全额报销运费的！为确保宝贝准确到达您手中，请认真填写您的真实信息。支持7天无理由退换！下单72小时内会以短信形式下发单号，请注意查收！</div>
+        </div>
+        <div class="slot"></div>
+        <div class="footer">
+          <button id="submit">提交</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="/js/arrds.js"></script>
+  <script src="/js/cascade.js"></script>
+  <script>
+    $().ready(function() {
+      var $prov = $('#prov-select');
+      var $city = $('#city-select');
+      var $region = $('#region-select');
+      initAddressCascade($prov, $city, $region, addr_arr);
+console.info(window.addr_arr);
+      var msgMap = {
+        color: '请选择颜色!',
+        style: '请选择款式!',
+        size: '请选择尺码!',
+        prov: '请选择省/自治区/直辖市!',
+        city: '请选择市!',
+        region: '请选择区/县!',
+        address: '请填写详细地址!',
+        name: '请填写您的姓名!',
+        phone: '请填写您的电话!',
+        yf: '请选择运费支付方式!'
+      };
+
+      $('#submit').click(function() {
+        var data = $('#form').serializeArray();
+        var check = true;
+        for (var i = 0, ilen = data.length; i < ilen; i++) {
+          var input = data[i];
+          var name = input.name;
+          var value = input.value;
+
+          var id = name + '-group';
+          if (['prov', 'city', 'region', 'address'].indexOf(name) >= 0) {
+            id = 'addr-group';
+          }
+          var group = $('#' + id);
+
+          if (!value) {
+            group.addClass('mb0');
+            group.find('.errmsg').remove();
+            group.append($('<div class="errmsg" style="color: red; height: 30px; line-height: 30px;">'+ msgMap[name] +'</div>'));
+            return;
+          } else {
+            group.removeClass('mb0');
+            group.find('.errmsg').remove();
+          }
+        }
+
+        var tpData = data.reduce(function(obj, row) {
+          obj[row.name] = row.value;
+          return obj;
+        }, {});
+
+        var provName = window.addr_arr[0].find(function(row) {
+          return row[0] === tpData.prov;
+        })[1];
+        var cityName = window.addr_arr[tpData.prov].find(function(row) {
+          return row[0] === tpData.city;
+        })[1];
+        var regionName = window.addr_arr[tpData.city].find(function(row) {
+          return row[0] === tpData.region;
+        })[1];
+
+
+        tpData.prov = provName;
+        tpData.city = cityName;
+        tpData.region = regionName;
+        $.ajax({
+          url: '/link',
+          type: 'post',
+          data: tpData,
+          dataType: 'json',
+        }).then(function(res) {
+          $('.container').html('<div style="padding: 90px; text-align: center;">恭喜, 提交成功!</div>');
+        }, function() {
+          console.error('😁');
+        });
+      });
+    });
+  </script>
+</body>
+</html>

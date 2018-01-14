@@ -51,36 +51,42 @@
     <Layout :style="{minHeight: '100vh'}">
       <Sider collapsible :collapsed-width="80" width="180" v-model="isCollapsed">
         <img class="logo" src="src/styles/images/sider-logo.svg" alt="logo">
-        <Menu active-name="1-2" theme="dark" width="auto" :class="menuitemClasses">
-          <MenuItem name="1-1">
+        <Menu
+          width="auto"
+          theme="dark"
+          :active-name="$route.name"
+          :class="menuitemClasses"
+          @on-select="hanldeMenuSelectChange"   >
+          <MenuItem name="account_index">
             <Icon type="ios-people"></Icon>
             <span>账户管理</span>
           </MenuItem>
-          <MenuItem name="1-3">
+          <MenuItem name="link_index">
             <Icon type="at"></Icon>
             <span>链接管理</span>
           </MenuItem>
-          <MenuItem name="1-2">
+         <!--  <MenuItem name="commodity_index">
             <Icon type="image"></Icon>
             <span>商品管理</span>
           </MenuItem>
-          <MenuItem name="1-4">
+          <MenuItem name="order_index">
             <Icon type="bonfire"></Icon>
             <span>订单管理</span>
-          </MenuItem>
+          </MenuItem> -->
         </Menu>
       </Sider>
       <Layout>
         <Header
           :style="{background: '#fff', boxShadow: '0 2px 3px 2px rgba(0,0,0,.1)'}">
           <Menu mode="horizontal">
-            <Submenu name="3">
+            <Submenu name="user-sub">
               <template slot="title">
                 <Icon type="person"></Icon>
-                wx6(admin)
+                <span v-html="username"></span>
+                (<span v-html="role"></span>)
               </template>
-              <MenuItem name="1-2">修改密码</MenuItem>
-              <MenuItem name="1-1">退出</MenuItem>
+              <MenuItem name="modify">修改密码</MenuItem>
+              <MenuItem name="exit" :click="handleExit">退出</MenuItem>
             </Submenu>
           </Menu>
         </Header>
@@ -89,7 +95,9 @@
             <BreadcrumbItem>Home</BreadcrumbItem>
           </Breadcrumb>
           <Card>
-            <div style="height: 600px">Content</div>
+            <div style="height: 600px">
+              <router-view></router-view>
+            </div>
           </Card>
         </Content>
       </Layout>
@@ -100,6 +108,8 @@
   export default {
     data () {
       return {
+        role: sessionStorage.role,
+        username: sessionStorage.username,
         isCollapsed: false
       };
     },
@@ -109,6 +119,14 @@
           'menu-item',
           this.isCollapsed ? 'collapsed-menu' : ''
         ]
+      }
+    },
+    methods: {
+      handleExit() {
+        console.info('???');
+      },
+      hanldeMenuSelectChange(name) {
+        this.$router.push({ name });
       }
     }
   }

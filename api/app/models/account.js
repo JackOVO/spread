@@ -15,7 +15,7 @@ const AccountSchema = new Schema({
     type: String,
     required: true
   },
-  rele: {
+  role: {
     type: String,
     required: true,
     enum: ['ADMIN', 'COMMON'],
@@ -37,7 +37,6 @@ AccountSchema.pre('save', function(next)  {
   const sha = crypto.createHash('sha512');
   sha.update(this.password + '一个盐');
   this.password = sha.digest('hex');
-  console.info('this.password', this.password);
   next();
 });
 
