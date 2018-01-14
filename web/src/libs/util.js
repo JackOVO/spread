@@ -11,10 +11,10 @@ util.title = function(title) {
 };
 
 const ajaxUrl = env === 'development' ?
-    'http://localhost:3000' :
+    'http://127.0.0.1:3000' :
     env === 'production' ?
-    'https://www.url.com' :
-    'https://debug.url.com';
+    'http://127.0.0.1:3000' :
+    'http://127.0.0.1:3000';
 
 util.ajax = axios.create({
     baseURL: ajaxUrl,
