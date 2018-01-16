@@ -25,4 +25,10 @@ util.formatDate = (date) => {
   return new moment(date).format('YYYY-MM-DD HH:mm:ss');
 };
 
+util.DateSort = (a, b) => {
+  const am = new moment(a);
+  const bm = new moment(b);
+  return am.unix() - bm.unix();
+};
+
 export default util;
