@@ -11,7 +11,7 @@ util.title = function(title) {
 };
 
 const ajaxUrl = env === 'development' ?
-    '/api' :
+    'http://localhost:3000' :
     env === 'production' ?
     '/api' :
     '/api';
@@ -25,10 +25,10 @@ util.formatDate = (date) => {
   return new moment(date).format('YYYY-MM-DD HH:mm:ss');
 };
 
-util.DateSort = (a, b) => {
+util.dateSort = (a, b, order) => {
   const am = new moment(a);
   const bm = new moment(b);
-  return am.unix() - bm.unix();
+  return order === 'asc' ? (am.unix() - bm.unix()) : (bm.unix() - am.unix());
 };
 
 export default util;

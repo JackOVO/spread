@@ -48,7 +48,7 @@
         pageSize: 10,
         sort: {
           key: 'created',
-          order: 'asc'
+          order: 'desc'
         },
         columns: [
           {
@@ -97,7 +97,9 @@
 
         return this.data
           .filter(link => link.name.indexOf(this.keyword) >= 0)
-          .sort(Util.DateSort)
+          .sort((ra, rb) => {
+            return Util.dateSort(ra[key], rb[key], order);
+          })
           .slice(start, end);
       }
     },
