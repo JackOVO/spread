@@ -28,6 +28,7 @@
         :total="total"
         :current="current"
         :page-size="pageSize"
+        :page-size-opts="[10, 50, 100]"
         @on-change="changePage"
         @on-page-size-change="changePageSize"
         size="small" />
@@ -45,7 +46,7 @@
         loading: false,
         keyword: '',
         current: 1,
-        pageSize: 10,
+        pageSize: 100,
         sort: {
           key: 'created',
           order: 'desc'
