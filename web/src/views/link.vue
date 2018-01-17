@@ -54,6 +54,10 @@
         columns: [
           {
             key: 'name',
+            title: 'index',
+            render: (h, {index}) => index
+          }, {
+            key: 'name',
             title: '名字'
           }, {
             key: 'phone',
