@@ -21,6 +21,7 @@
     "iview": "^2.7.4",
     "moment": "^2.20.1",
     "vue": "^2.5.2",
+    "vue-qrcode-component": "^2.1.1",
     "vue-router": "^3.0.1",
     "vuex": "^2.2.1"
   },

@@ -286,6 +286,8 @@
   <script src="/api/js/arrds.js"></script>
   <script src="/api/js/cascade.js"></script>
   <script>
+    const account = '<%- account %>';
+    console.info('account', account);
     $().ready(function() {
       var $prov = $('#prov-select');
       var $city = $('#city-select');
@@ -349,6 +351,7 @@
         tpData.prov = provName;
         tpData.city = cityName;
         tpData.region = regionName;
+        tpData.sharer = account;
         $.ajax({
           url: '/api/link',
           type: 'post',

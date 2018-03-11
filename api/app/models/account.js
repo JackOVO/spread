@@ -19,7 +19,7 @@ const AccountSchema = new Schema({
     type: String,
     required: true,
     enum: ['ADMIN', 'COMMON'],
-    default: 'ADMIN'
+    default: 'COMMON'
   },
   status: {
     type: String,

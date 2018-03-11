@@ -9,6 +9,10 @@ module.exports = (app) => {
 };
 
 router.get('/', (req, res, next) => {
+  if (!req.session.account || req.session.account.role !== 'ADMIN') {
+    return res.json(401, {});
+  }
+  
   Account.find((err, accounts) => {
     if (err) return next(err);
     res.json(accounts);

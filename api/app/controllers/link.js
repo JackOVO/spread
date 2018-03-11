@@ -7,15 +7,26 @@ module.exports = (app) => {
   app.use('/link', router);
 };
 
-router.get('/:id', (req, res, next) => {
+router.get('/:account', (req, res, next) => {
   res.render('link', {
     title: '新★ 正 品 ★',
-    content: '新★ 正 品 ★'
+    content: '新★ 正 品 ★',
+    account: req.params.account
   });
 });
 
 router.get('/', (req, res, next) => {
-  Link.find((err, links) => {
+  if (!req.session.account) {
+    return res.json(401, {});
+  }
+
+  const options = {};
+  if (req.query.sharer) {
+    options.sharer = req.query.sharer;
+  }
+
+
+  Link.find(options, (err, links) => {
     if (err) return next(err);
     res.json(links);
   });

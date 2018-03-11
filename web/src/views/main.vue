@@ -57,13 +57,17 @@
           :active-name="$route.name"
           :class="menuitemClasses"
           @on-select="hanldeMenuSelectChange"   >
-          <MenuItem name="account_index">
+          <MenuItem name="account_index" v-if="role === 'ADMIN'">
             <Icon type="ios-people"></Icon>
             <span>账户管理</span>
           </MenuItem>
           <MenuItem name="link_index">
             <Icon type="at"></Icon>
             <span>链接管理</span>
+          </MenuItem>
+          <MenuItem name="qr_index">
+            <Icon type="qr-scanner"></Icon>
+            <span>二维码</span>
           </MenuItem>
          <!--  <MenuItem name="commodity_index">
             <Icon type="image"></Icon>
@@ -86,7 +90,7 @@
                 (<span v-html="role"></span>)
               </template>
               <MenuItem name="modify">修改密码</MenuItem>
-              <MenuItem name="exit" :click="handleExit">退出</MenuItem>
+              <MenuItem name="exit"><div @click="handleExit">退出</div></MenuItem>
             </Submenu>
           </Menu>
         </Header>
@@ -105,6 +109,8 @@
   </div>
 </template>
 <script>
+  import Util from '../libs/util';
+
   export default {
     data () {
       return {
@@ -123,7 +129,14 @@
     },
     methods: {
       handleExit() {
-        console.info('???');
+        Util.ajax.get('/logout', {}).then(() => {
+          sessionStorage.clear();
+          location.href = '/signin';
+        }).catch(err => {
+          console.error(err);
+          sessionStorage.clear();
+          location.href = '/signin';
+        });
       },
       hanldeMenuSelectChange(name) {
         this.$router.push({ name });

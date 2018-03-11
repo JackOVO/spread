@@ -1,13 +1,15 @@
 <template>
-  <Row>
+  <Row :gutter="10">
     <Col span="4">
       <Input
         v-model="keyword"
         icon="search"
         placeholder="名字搜索..." />
     </Col>
-    <Col span="20" class-name="text-right">
-      <!-- <Button>重置密码</Button> -->
+    <Col span="20">
+      <Select v-model="selected" @on-change="loadData" style="width:120px" placeholder="请选择分享人">
+        <Option v-for="item in accountList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+      </Select>
     </Col>
     <Col span="24" style="height: 20px;"></Col>
     <Col span="24">
@@ -38,6 +40,8 @@
 </template>
 <script>
   import Util from '../libs/util';
+  const role = sessionStorage.role;
+  const username = sessionStorage.username;
 
   export default {
     data() {
@@ -45,6 +49,7 @@
       return {
         loading: false,
         keyword: '',
+        selected: role === 'ADMIN' ? '' : username,
         current: 1,
         pageSize: 100,
         sort: {
@@ -54,20 +59,25 @@
         columns: [
           {
             key: 'name',
-            title: 'index',
+            title: '序号',
+            width: '80px',
             render: (h, {index}) => index
           }, {
             key: 'name',
-            title: '名字'
+            title: '名字',
+            width: '80px'
           }, {
             key: 'phone',
-            title: '电话'
+            title: '电话',
+            width: '150px'
           }, {
             key: 'style',
-            title: '款式'
+            title: '款式',
+            width: '80px'
           }, {
             key: 'size',
-            title: '尺码'
+            title: '尺码',
+            width: '80px'
           }, {
             key: 'address',
             title: '地址',
@@ -80,14 +90,20 @@
               `;
             }
           }, {
+            key: 'sharer',
+            title: '分享人',
+            width: '100px'
+          }, {
             sortable: 'custom',
             sortMethod: 'desc',
             key: 'created',
             title: '创建时间',
+            width: '150px',
             render: (h, {row}) => Util.formatDate(row.created)
           }
         ],
-        data: []
+        data: [],
+        accounts: []
       };
     },
     computed: {
@@ -106,6 +122,18 @@
             return Util.dateSort(ra[key], rb[key], order);
           })
           .slice(start, end);
+      },
+      accountList: function() {
+        if (role !== 'ADMIN') {
+          return [{ label: username, value: username }];
+        }
+
+        const online = this.accounts.map(item => ({
+          label: item.username,
+          value: item.username
+        }));
+
+        return [{label: '全部', value: ''}].concat(online);
       }
     },
     methods: {
@@ -121,7 +149,7 @@
       },
       loadData: function() {
         this.loading = true;
-        Util.ajax.get('/link', {}).then(({data}) => {
+        Util.ajax.get('/link', {params: { sharer: this.selected }}).then(({data}) => {
           this.data = data;
           this.loading = false;
         }).catch(err => {
@@ -129,9 +157,19 @@
           this.loading = false;
         });
       },
+      loadAccounts: function() {
+        Util.ajax.get('/account', {}).then(({data}) => {
+          this.accounts = data;
+        }).catch(err => {
+          this.$Message.error(err);
+        });
+      }
     },
     created() {
       this.loadData();
+      if (role === 'ADMIN') {
+        this.loadAccounts();
+      }
     }
   }
 </script>

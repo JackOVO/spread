@@ -49,6 +49,20 @@ const appRouter = [{
       component: (resolve) => require(['./views/link.vue'], resolve)
     }
   ]
+}, {
+  path: '/qr',
+  name: 'qr',
+  meta: {title: '二维码生成'},
+  access: 'admin',
+  component: Main,
+  children: [
+    {
+      path: 'index',
+      name: 'qr_index',
+      access: 'admin',
+      component: (resolve) => require(['./views/QR.vue'], resolve)
+    }
+  ]
 }];
 
 const routers = [

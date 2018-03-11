@@ -16,7 +16,8 @@ const LinkSchema = new Schema({
   created: {
     type: Date,
     default: Date.now
-  }
+  },
+  sharer: String
 });
 
 mongoose.model('Link', LinkSchema);

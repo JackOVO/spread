@@ -24,6 +24,9 @@ router.post('/signin', (req, res, next) => {
         res.json(err.message || 500, {errorMsg: err.message})
       } else if (isMatch) {
 
+        // 保存用户信息
+        req.session.account = account;
+
         res.json({
           _id: account._id,
           username: account.username,
@@ -37,3 +40,8 @@ router.post('/signin', (req, res, next) => {
     })
   });
 });
+
+router.get('/logout', (req, res, next) => {
+  req.session.account = null;
+  res.json({msg: '退出成功!'});
+})
