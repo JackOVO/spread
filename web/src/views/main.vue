@@ -61,7 +61,7 @@
             <Icon type="ios-people"></Icon>
             <span>账户管理</span>
           </MenuItem>
-          <MenuItem name="link_index">
+          <MenuItem name="link_index" v-if="role === 'ADMIN'">
             <Icon type="at"></Icon>
             <span>链接管理</span>
           </MenuItem>
