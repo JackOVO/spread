@@ -3,7 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const Link = mongoose.model('Link');
 
-module.exports = (app) => {
+module.exports = app => {
   app.use('/link', router);
 };
 
@@ -11,6 +11,14 @@ router.get('/:account', (req, res, next) => {
   res.render('link', {
     title: '新★ 正 品 ★',
     content: '新★ 正 品 ★',
+    account: req.params.account
+  });
+});
+
+router.get('/tmp/:account', (req, res, next) => {
+  res.render('link2', {
+    title: '镯子',
+    content: '镯子',
     account: req.params.account
   });
 });
@@ -25,7 +33,6 @@ router.get('/', (req, res, next) => {
     options.sharer = req.query.sharer;
   }
 
-
   Link.find(options, (err, links) => {
     if (err) return next(err);
     res.json(links);
@@ -34,11 +41,11 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   const _link = new Link(req.body);
-   _link.save((err, link) => {
+  _link.save((err, link) => {
     if (err) {
-      res.json(500, {msg: err.message});
+      res.json(500, { msg: err.message });
     } else {
-      res.json({msg: '保存成功!'});
+      res.json({ msg: '保存成功!' });
     }
   });
-})
+});

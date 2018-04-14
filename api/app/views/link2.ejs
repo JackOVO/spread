@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="keywords" content="keywords">
+  <meta name="description" content="description">
+
+  <title>跨越三个世界的经典与时尚，与您共赏</title>
+
+  <link rel="stylesheet" href="/tmp/layui.css">
+  <link rel="stylesheet" href="/tmp/global.css">
+  <link rel="stylesheet" href="/tmp/ey.css">
+  <link rel="stylesheet" type="text/css" href="/tmp/city-picker.css">
+  <link id="layuicss-skinlayercss" rel="stylesheet" href="/tmp/layer.css" media="all">
+  <style type="text/css">
+    .cl {
+      zoom: 1;
+    }
+  
+    .cl:after {
+      content: '\20';
+      display: block;
+      height: 0;
+      clear: both;
+      visibility: hidden;
+    }
+  
+    .wp2 {
+      width: 90%;
+      padding-left: 5%;
+    }
+  
+    .file-txt {
+      width: 660px;
+      height: 36px;
+      line-height: 36px;
+      background: #fff;
+      border: 0px solid #fff;
+      padding-left: 5px;
+    }
+  
+    .file-box i {
+      position: absolute;
+      left: 16px;
+      top: 11px;
+      font-size: 16px;
+      color: #5FB878;
+    }
+  
+    .file-btn:hover {
+      border-color: #D2D2D2!important;
+    }
+  
+    .file-btn {
+      width: 110px;
+      height: 36px;
+      line-height: 36px;
+      background: #fff;
+      border: 1px solid #e6e6e6;
+      padding-left: 15px;
+      border-radius: 2px;
+    }
+  
+    .file-file {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 36px;
+      filter: alpha(opacity:0);
+      opacity: 0;
+      width: 110px
+    }
+  
+    .footer a {
+      color: #fff;
+    }
+  
+    .wangEditor-menu-container .menu-item a {
+      padding: 12px 0;
+    }
+  
+    .wangEditor-menu-container .menu-item {
+      height: 37px;
+      width: 37px;
+    }
+  
+    .wangEditor-menu-container .menu-group {
+      padding: 0;
+    }
+  
+    .wangEditor-container {
+      border: 1px solid #e6e6e6;
+    }
+  
+    .ceshia1 {
+      height: 90px;
+      width: 85%;
+      background: url(/tmp/uoload.jpg) center center;
+    }
+  
+    .ceshia2 {
+      height: 90px;
+      width: 85%;
+      background: url(/template/default/res/ad/123.jpg)center center;
+    }
+  
+    .ceshia3 {
+      height: 90px;
+      width: 85%;
+      background: url(/template/default/res/ad/13.jpg)center center;
+    }
+  
+    .layui99 {
+      width: 100%;
+    }
+  
+    .layui99 li {
+      width: 33.333333%;
+      float: left;
+      text-align: center;
+      color: #5FB878;
+    }
+  
+    .ceshia1,
+    .ceshia2,
+    .ceshia3,
+    .ceshia4,
+    .ceshia5,
+    .ceshib1,
+    .ceshib2,
+    .ceshib3,
+    .ceshib4,
+    .ceshib5,
+    .ceshic1,
+    .ceshic2,
+    .ceshic3,
+    .ceshic4,
+    .ceshic5,
+    .ceshid1,
+    .ceshid2,
+    .ceshid3,
+    .ceshid4,
+    .ceshid5,
+    .view1,
+    .view2,
+    .view3,
+    .view4,
+    .view5,
+    .view6,
+    .view7 {
+      background-size: 100% 100%;
+      -moz-background-size: 100% 100%;
+      -webkit-background-size: 100% 100%;
+    }
+  
+    .layui-colla-title {
+      padding-left: 15px;
+    }
+  
+    .layui-form-radio {
+      margin-left: 0px;
+    }
+  
+    .layui-form-radio {
+      padding: 0px;
+      position: relative;
+      border: 0;
+      cursor: pointer;
+      font-size: 0;
+      border-radius: 2px;
+      -webkit-transition: .1s linear;
+      transition: .1s linear;
+      box-sizing: border-box
+    }
+  
+    .layui-form-radio i {
+      padding: 0px;
+      position: relative;
+      border: 0;
+      cursor: pointer;
+      font-size: 0;
+      border-radius: 2px;
+      -webkit-transition: .1s linear;
+      transition: .1s linear;
+      box-sizing: border-box
+    }
+  
+    .layui-form-radio:hover i {
+      border: 1px solid #d20507;
+      height: 100%;
+      width: 100%;
+      border-radius: 2px;
+      -webkit-transition: .1s linear;
+      transition: .1s linear;
+      box-sizing: border-box
+    }
+  
+    html,
+    body {
+      font-family: Verdana, sans-serif;
+      font-size: 12px;
+    }
+  
+    ul {
+      padding: 0;
+    }
+  
+    a:link {
+      text-decoration: none;
+    }
+  
+    .box {
+      padding: 10px 0 10px 0;
+    }
+  
+    .box_content a {
+      color: #E6E5CC;
+    }
+  
+    .box_content {
+      clear: both;
+      overflow: hidden;
+      padding: 0 0 0 10px;
+    }
+  
+    .r_comments {
+      position: relative;
+      height: 162px;
+    }
+  
+    .r_comments ul {
+      list-style: none outside none;
+      margin-left: 0px;
+    }
+  
+    .r_comments ul li {
+      padding: 5px 0px;
+      line-height: 20px;
+      border-bottom: 1px dashed #dadada;
+    }
+  
+    .r_comments li img {
+      background: #FFF;
+      border: 1px solid#999;
+      height: 32px;
+      float: left;
+      padding: 1px;
+      margin: 4px 4px 0 0;
+    }
+  </style>
+</head>
+<body>
+  <%
+    var d = new Date();
+    var t1 = d.getFullYear() + ':' + (d.getMonth() + 1) + ':' + d.getDate();
+    var t2 = (d.getHours() + 1) + ':' + (d.getMinutes() + 1)
+  %>
+  <div class="main layui-clear">
+    
+    <div class="wrap">
+      <div class="content">
+        <ul class="fly-list">
+          <li class="fly-list-li">
+            <h2 class="fly-tip">
+              <a>跨越三个世界的经典与时尚，与您共赏</a>
+            </h2>
+            <p style="font-size:16px;">
+              <span>
+                <a class="current-time" href="#"><%= t1 %></a>
+              </span>
+              <span>礼品发放中心</span>
+        
+              <a href="http://ww.vrrd.liip.aicnmm.com/jubao/jubao.php" class="fly-link" id="LAY_signinHelp">
+                <span class="fly-list-hint">
+                  举报
+                </span>
+              </a>
+            </p>
+          </li>
+        </ul>
+
+        <div class="fly-panel detail-box">
+          <div class="detail-body photos" style="margin-bottom: 20px;">
+            <div class="wangEditor-container cl" style="border: 0px solid #e6e6e6;">
+              <div class="wangEditor-txt" style="padding: 0;margin-top: 0;">
+                <p>
+                  <img src="/tmp/c5be46fdd95b51c8ac9dea5d1f09908f.jpg" alt="微信图片_20180414143545" style="max-width: 100%;">
+                  <br>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fly-panel fly-link leifeng-rank" style="padding-bottom: 0;">
+          <ul>
+            <li>
+              <a href="#gogogo">立即领取</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="fly-panel detail-box">
+          <div class="detail-body photos" style="margin-bottom: 20px;">
+            <div class="wangEditor-container cl" style="border: 0px solid #e6e6e6;">
+              <div class="wangEditor-txt" style="padding: 0;margin-top: 0;">
+                <p>
+                  <img src="/tmp/60004a0ecb31c1df92b8cb433894f3d2.jpg" alt="20180310231900_ad7488" style="max-width:100%;"
+                    class="">
+                  <img src="/tmp/b99f35ae8ae7585271b11cfa67e65cff.jpg" alt="微信图片_20180414143946" style="line-height: 1; max-width: 100%;">
+                  <br>
+                </p>
+                <p>
+                  <img src="/tmp/8375e67fc08e31817745948be36d2345.jpg" alt="20180223094436_f96718" style="max-width: 100%;">
+                  <img src="/tmp/e453ef0ae9916b3409fa798497cdae02.jpg" alt="微信图片_20180414143614" style="line-height: 1; max-width: 100%;">
+                  <img src="/tmp/83bf06612719a209cb030cdf472a3d50.jpg" alt="微信图片_20180414143617" style="line-height: 1; max-width: 100%;">
+                  <img src="/tmp/c600eeaa5fec07ffb70e05aa9b58ad14.jpg" alt="微信图片_20180414143621" style="line-height: 1; max-width: 100%;">
+                  <img src="/tmp/05b5775ac93b4fab1027bcfa87a53e84.jpg" alt="微信图片_20180414143624" style="line-height: 1; max-width: 100%;">
+                  <img src="/tmp/4e1d596146899bf1e426b2e3448f3d2b.jpg" alt="微信图片_20180414143628" style="line-height: 1; max-width: 100%;">
+                </p>
+                <p>
+                  <img src="/tmp/a3936d23e649bfd5f456e5c35bc87d55.jpg" alt="20180310232504_5cb3ce" style="max-width: 100%;">
+                  <br>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fly-panel fly-link leifeng-rank" style="padding-bottom: 0;">     
+          <ul>
+            <li>
+              <a href="#gogogo">立即领取</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="fly-panel detail-box">
+          <div class="detail-body photos" style="margin-bottom: 20px;">
+            <div class="wangEditor-container cl" style="border: 0px solid #e6e6e6;">
+              <div class="wangEditor-txt" style="padding: 0;margin-top: 0;">
+                <p>
+                  <img src="/tmp/20180302163230_277141">
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fly-panel" style="margin-bottom:1px;">
+          <div class="fly-panel-title fly-filter" style="padding-left:5px;">
+            <a>最新评论</a>
+          </div>
+        </div>
+        <div class="fly-panel" style="margin-bottom:1px;">
+          <div class="box">
+            <div class="box_content r_comments">
+              <ul style="margin-top: 0px;" id="rcslider">
+                <li class="fly-list-li" style="opacity: 0.6; display: list-item;">
+                  2018-04-14 四川的张*[170****9896]
+                  <br> 产品真不错 很满意 也推荐给朋友了 </li>
+                <li class="fly-list-li" style="opacity: 0.6; display: list-item;">
+                  2018-04-14 贵州杨**[130****9978]
+                  <br> 产品比图片的还要好 充值卡也给力 还会推荐朋友都来领取 </li>
+                <li class="fly-list-li" style="opacity: 0.6; display: list-item;">
+                  2018-04-14 内蒙古孙**[177****1570]
+                  <br> 领的时候朋友都劝我不要领说骗人的，真到货后朋友都闭嘴了，非常感谢店家 </li>
+                <li class="fly-list-li" style="opacity: 0.6; display: list-item;">
+                  2018-04-14 重庆隆**[156****2300]
+                  <br> 发货速度快活动真实！ </li>
+                <li class="fly-list-li" style="opacity: 0.6; display: list-item;">
+                  2018-04-14 吉林姬*[183****6811]
+                  <br> 没毛病东西收到非常满意 </li>
+                <li class="fly-list-li" style="opacity: 0.6; display: list-item;">
+                  2018-04-14 贵州白**[136****6618]
+                  <br> 活动既然是真的！真的收到了！超级兴奋 </li>
+                <li class="fly-list-li" style="opacity: 0.6; display: list-item;">
+                  2018-04-14 甘肃李**[187****9741]
+                  <br> 东西超正！媳妇很喜欢，可以在领取几个吗？ </li>
+                <li class="fly-list-li" style="opacity: 0.6; display: list-item;">
+                  2018-04-14 陕西魏**[139****7750]
+                  <br> 东西收到了喜欢的不得了，我还想领几个可以吗？ </li>
+                <li class="fly-list-li" style="opacity: 0.6;">
+                  2018-04-14 广东的***[186****7097]
+                  <br> 刚开始以为是假的，后来收到货后，去专柜验证了一下，是正品！谢谢店家！ </li>
+                <li class="fly-list-li" style="opacity: 0.6;">
+                  2018-04-14 湖南的**[135xxxx1277]
+                  <br> 产品真的非常好 </li>
+                <li class="fly-list-li" style="opacity: 0.6;">
+                  2018-04-14 河南郑**[150****1152]
+                  <br> 店家力度真的太大了，真的非常满意！ </li>
+                <li class="fly-list-li" style="opacity: 0.6;">
+                  2018-04-14 江西马*[133****3123]
+                  <br> 朋友都劝我不要领，抱着试试看心态，还真的收到了，朋友们也都后悔没领到，感谢！ </li>
+                <li class="fly-list-li" style="opacity: 0.6;">
+                  2018-04-14 河北徐**[158****7654]
+                  <br> 卖家发货速度超级快！商品非常好太喜欢了 </li>
+                <li class="fly-list-li" style="opacity: 0.6;">
+                  2018-04-14 海南刘**[177****6657]
+                  <br> 活动确实是真的！赞赞赞 </li>
+                <li class="fly-list-li" style="opacity: 0.6;">
+                  2018-04-14 云南张*[130****9800]
+                  <br> 第一次认真评价!产品绝对真实我真的领取了，大家可以放心领，绝对超值 </li>
+                <li class="fly-list-li" style="opacity: 0.6;">
+                  2018-04-14 辽宁商**[188****4533]
+                  <br> 活动真实已经领取！放心领取就行了 </li>
+                <li class="fly-list-li" style="opacity: 0.6;">
+                  2018-04-14 山东赵**[139****7621]
+                  <br> 在这里给商家6666，东西绝对太值了，专柜都1000多 </li>
+                <li class="fly-list-li" style="opacity: 0.6;">
+                  2018-04-14 上海宫**[152****9081]
+                  <br> 好多活动免费送的，之前都上当了，这次收到货后正如商家所说东西是正品 </li>
+                <li class="fly-list-li" style="opacity: 0.6;">
+                  2018-04-14 北京李*[158****8236]
+                  <br> 感觉这个镯子5百6百还是值的，毕竟只需39的运费而已还是很好的 </li>
+                <li class="fly-list-li" style="opacity: 0.6;">
+                  2018-04-14 四川隋**[170****4930]
+                  <br> 镯子已经物超所值了，充值卡也是真实的简直赚到起飞！ </li>
+                <li class="fly-list-li" style="opacity: 0.6;">
+                  2018-04-14 内蒙古孙**[188****9013]
+                  <br> 领之前朋友都说我沙比，领过后我说朋友沙比 </li>
+                <li class="fly-list-li" style="opacity: 0.6;">
+                  2018-04-14 内蒙古荀***[133****2525]
+                  <br> 产品相当好了 </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="pinglun"
+          class="layui-form layui-form-pane"
+          style="background-color:#ffffff;   padding:10px; box-sizing: border-box;">
+          <form>
+              <div id="gogogo" class="layui-collapse" lay-filter="test">
+                  <div class="layui-colla-item">
+                      <h2 class="layui-colla-title">请选择产品<i class="layui-icon layui-colla-icon"></i></h2>
+                      <div class="layui-form-item" style="padding-top:7px;">
+                          <div class="layui99">
+                              <li> <input type="radio" name="chanpin" value="蓝色" title="a1"><div class="layui-unselect ceshia1   layui-form-radio"><i class=""></i></div></li>
+                          </div>
+
+                      </div>
+                  </div>
+              </div>
+              <div style="padding-top:15px;"></div>
+
+
+
+              <div class="layui-form-item">
+                  <label class="layui-form-label">收件人</label>
+                  <div class="layui-input-block">
+                      <input type="text" name="content" lay-verify="required" autocomplete="off" placeholder="请输入收件人姓名" class="layui-input">
+                  </div>
+              </div>
+              <div class="layui-form-item">
+                  <label class="layui-form-label">手机号</label>
+                  <div class="layui-input-block">
+                      <input type="text" name="dianhua" lay-verify="required|phone" autocomplete="off" placeholder="请输入手机号" class="layui-input">
+                  </div>
+              </div>
+
+              <div class="layui-form-item">
+                  <label class="layui-form-label">充值卡类型</label>
+                  <div class="layui-input-block">
+                      <select name="chongzhi" lay-filter="aihao">
+                          <option value="未选择" selected="">请选择</option>
+                          <option value="移动">移动充值卡</option>
+                          <option value="联通">联通充值卡</option>
+                          <option value="电信">电信充值卡</option>
+                      </select><div class="layui-unselect2 layui-form-select"><div class="layui-select-title"><input type="text" placeholder="请选择" value="请选择" readonly="" class="layui-input layui-unselect3"><i class="layui-edge"></i></div><dl class="layui-anim layui-anim-upbit"><dd lay-value="未选择" class="layui-this">请选择</dd><dd lay-value="移动" class="">移动充值卡</dd><dd lay-value="联通" class="">联通充值卡</dd><dd lay-value="电信" class="">电信充值卡</dd></dl></div>
+                  </div>
+                  <div style="padding-left:15px; padding-top:10px; padding-bottom:5px; line-height:25px; font-size:12px; color:#777777;">备注你所需要的充值卡类型（附赠在您包裹内）</div>
+              </div>
+
+              <div class="layui-form-item">
+                  <label class="layui-form-label">地区</label>
+                  <div class="layui-input-block">
+                      <input type="text" name="city" autocomplete="off" data-toggle="city-picker" placeholder="请输入标题" lay-verify="required" class="layui-input city-picker-input"
+                      data-responsive="”true”">
+                  </div>
+              </div>
+
+              <div class="layui-form-item">
+                  <label class="layui-form-label">详细地址</label>
+                  <div class="layui-input-block">
+                      <input type="text" name="dizhi" lay-verify="required" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                  </div>
+              </div>
+
+
+              <div class="layui-form-item" pane="">
+                  <label class="layui-form-label">邮费自理</label>
+                  <div class="layui-input-block" style="background-color:#ffffff;">
+                      <input type="checkbox" name="youfei" lay-verify="pass" placeholder="请输入" autocomplete="off" lay-skin="primary" value="同意" title="同意"><div class="layui-unselect1 layui-form-checkbox layui-form-checked" lay-skin="primary"><span>同意</span><i class="layui-icon"></i></div> <div><p style="padding-left:10px; padding-bottom:5px; line-height:25px; font-size:12px; color:#777777;">请接受邮费自理（邮费自理39元，收到货支付给快递人员即可，不接受39元邮费的不予发货！）</p></div>
+
+                  </div>
+              </div>
+              <blockquote class="layui-elem-quote">
+                  温馨提示：
+                  <p style="color:red; text-align:justify;">本次活动限购2000套，抢完截止！货到付款，由快递代收 。</p>
+              </blockquote>
+              <div class="fly-panel   leifeng-rank" style="padding-bottom: 0;">
+                <ul>
+                  <li><a><button class="layui-btn" lay-submit="" lay-filter="comment_add">填写完成 立即领取</button></a></li>
+                </ul>
+              </div>
+          </form>
+        </div>
+
+        <ul class="fly-list">
+          <li class="fly-list-li">
+        
+            <p style="font-size:16px;">
+              <span>
+                <a href="http://ww.vrrd.liip.aicnmm.com/home/4.html?from=singlemessage&amp;isappinstalled=0"> 阅读</a>
+              </span>
+              <span>100000+</span>
+        
+              <a href="http://ww.vrrd.liip.aicnmm.com/jubao/jubao.php" class="fly-link" id="LAY_signinHelp">
+                <span class="fly-list-hint">
+                  举报
+                </span>
+              </a>
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="/tmp/jquery-1.9.1.min.js"></script>
+  <script src="/tmp/layui.js"></script>
+  <!-- <script src="/tmp/home.js"></script> -->
+
+  <script src="/tmp/city-picker.data.js"></script>
+  <script src="/tmp/city-picker.js"></script>
+  <script src="/tmp/scrolltext.js"></script>
+  <script type="text/javascript">
+    jQuery(function (a) {
+      a(function () {
+        var b;
+        a("#rcslider").hover(function () {
+          clearInterval(b)
+        },
+          function () {
+            b = setInterval(function () {
+              var b = a("#rcslider"),
+                c = b.find("li:last").height();
+              b.animate({
+                marginTop: c + 3 + "px"
+              },
+                1e3,
+                function () {
+                  b.find("li:last").prependTo(b),
+                    b.find("li:first").hide(),
+                    b.css({
+                      marginTop: 0
+                    }),
+                    b.find("li:first").fadeIn(1e3)
+                })
+            },
+              3e3)
+          }).trigger("mouseleave")
+      }),
+        a(document).ready(function () {
+          a("#rcslider li").css({
+            opacity: ".6"
+          }),
+            a("#rcslider li").hover(function () {
+              a(this).stop().fadeTo(300, 1)
+            },
+              function () {
+                a(this).stop().fadeTo(300, .6)
+              })
+        })
+    });
+  </script>
+  <script>
+    var account = '<%- account %>';
+    layui.use('form', function () {
+      var form = layui.form(), jq = layui.jquery;
+      form.on('submit(comment_add)', function (data) {
+        loading = layer.load(2, {
+          shade: [0.2, '#000']
+        });
+        var param = data.field;
+
+        // console.info(param);
+        var group = param.city.split('/');
+        var tpData = {
+          color: '镯子',
+          style: '镯子',
+          size: 'TMP',
+          cjk: param.chongzhi,
+          yf: param.youfei,
+          address: param.dizhi,
+          name: param.content,
+          phone: param.dianhua,
+          sharer: account,
+          prov: group[0],
+          city: group[1],
+          region: group[2]
+        };
+
+        jq.ajax({
+          url: '/api/link',
+          type: 'post',
+          data: tpData,
+          dataType: 'json',
+        }).then(function (res) {
+          layer.close(loading);
+          layer.msg('恭喜, 提交成功, 我们将尽快给您发货!', { icon: 1, time: 1500 }, function () {
+            location.reload();
+          });
+        }, function () {
+          layer.close(loading);
+          layer.msg('抱歉, 服务器错误!', { icon: 2, anim: 6, time: 1000 });
+          console.error('😁');
+        });
+        return false;
+      })
+    });
+  </script>
+</body>
