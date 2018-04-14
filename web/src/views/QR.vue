@@ -6,30 +6,28 @@
 
 <template>
   <Row>
+    <Col>衣服地址:</Col>
     <Col>
       <Input
         v-model="domain"
         placeholder="请输入域名">
-        <span slot="prepend">衣服地址</span>
         <span slot="prepend">http://</span>
         <span slot="append">/api/link/{{ username }}</span>
       </Input>
     </Col>
     <Col>
-      衣服:
       <qr-code :text="address" class="qr-wrapper" style="margin-top: 20px;" />
     </Col>
+    <Col>镯子地址:</Col>
     <Col>
       <Input
         v-model="domain"
         placeholder="请输入域名">
-        <span slot="prepend">镯子地址</span>
         <span slot="prepend">http://</span>
         <span slot="append">/api/link/tmp/{{ username }}</span>
       </Input>
     </Col>
     <Col>
-      镯子:
       <qr-code :text="bracelet" class="qr-wrapper" style="margin-top: 20px;" />
     </Col>
   </Row>
