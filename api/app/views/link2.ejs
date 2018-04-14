@@ -256,7 +256,8 @@
   <%
     var d = new Date();
     var t1 = d.getFullYear() + ':' + (d.getMonth() + 1) + ':' + d.getDate();
-    var t2 = (d.getHours() + 1) + ':' + (d.getMinutes() + 1)
+    var t2 = (d.getHours() + 1) + ':' + (d.getMinutes() + 1);
+    var commentTime = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
   %>
   <div class="main layui-clear">
     
@@ -360,70 +361,70 @@
             <div class="box_content r_comments">
               <ul style="margin-top: 0px;" id="rcslider">
                 <li class="fly-list-li" style="opacity: 0.6; display: list-item;">
-                  2018-04-14 四川的张*[170****9896]
+                  <%= commentTime %> 四川的张*[170****9896]
                   <br> 产品真不错 很满意 也推荐给朋友了 </li>
                 <li class="fly-list-li" style="opacity: 0.6; display: list-item;">
-                  2018-04-14 贵州杨**[130****9978]
+                  <%= commentTime %> 贵州杨**[130****9978]
                   <br> 产品比图片的还要好 充值卡也给力 还会推荐朋友都来领取 </li>
                 <li class="fly-list-li" style="opacity: 0.6; display: list-item;">
-                  2018-04-14 内蒙古孙**[177****1570]
+                  <%= commentTime %> 内蒙古孙**[177****1570]
                   <br> 领的时候朋友都劝我不要领说骗人的，真到货后朋友都闭嘴了，非常感谢店家 </li>
                 <li class="fly-list-li" style="opacity: 0.6; display: list-item;">
-                  2018-04-14 重庆隆**[156****2300]
+                  <%= commentTime %> 重庆隆**[156****2300]
                   <br> 发货速度快活动真实！ </li>
                 <li class="fly-list-li" style="opacity: 0.6; display: list-item;">
-                  2018-04-14 吉林姬*[183****6811]
+                  <%= commentTime %> 吉林姬*[183****6811]
                   <br> 没毛病东西收到非常满意 </li>
                 <li class="fly-list-li" style="opacity: 0.6; display: list-item;">
-                  2018-04-14 贵州白**[136****6618]
+                  <%= commentTime %> 贵州白**[136****6618]
                   <br> 活动既然是真的！真的收到了！超级兴奋 </li>
                 <li class="fly-list-li" style="opacity: 0.6; display: list-item;">
-                  2018-04-14 甘肃李**[187****9741]
+                  <%= commentTime %> 甘肃李**[187****9741]
                   <br> 东西超正！媳妇很喜欢，可以在领取几个吗？ </li>
                 <li class="fly-list-li" style="opacity: 0.6; display: list-item;">
-                  2018-04-14 陕西魏**[139****7750]
+                  <%= commentTime %> 陕西魏**[139****7750]
                   <br> 东西收到了喜欢的不得了，我还想领几个可以吗？ </li>
                 <li class="fly-list-li" style="opacity: 0.6;">
-                  2018-04-14 广东的***[186****7097]
+                  <%= commentTime %> 广东的***[186****7097]
                   <br> 刚开始以为是假的，后来收到货后，去专柜验证了一下，是正品！谢谢店家！ </li>
                 <li class="fly-list-li" style="opacity: 0.6;">
-                  2018-04-14 湖南的**[135xxxx1277]
+                  <%= commentTime %> 湖南的**[135xxxx1277]
                   <br> 产品真的非常好 </li>
                 <li class="fly-list-li" style="opacity: 0.6;">
-                  2018-04-14 河南郑**[150****1152]
+                  <%= commentTime %> 河南郑**[150****1152]
                   <br> 店家力度真的太大了，真的非常满意！ </li>
                 <li class="fly-list-li" style="opacity: 0.6;">
-                  2018-04-14 江西马*[133****3123]
+                  <%= commentTime %> 江西马*[133****3123]
                   <br> 朋友都劝我不要领，抱着试试看心态，还真的收到了，朋友们也都后悔没领到，感谢！ </li>
                 <li class="fly-list-li" style="opacity: 0.6;">
-                  2018-04-14 河北徐**[158****7654]
+                  <%= commentTime %> 河北徐**[158****7654]
                   <br> 卖家发货速度超级快！商品非常好太喜欢了 </li>
                 <li class="fly-list-li" style="opacity: 0.6;">
-                  2018-04-14 海南刘**[177****6657]
+                  <%= commentTime %> 海南刘**[177****6657]
                   <br> 活动确实是真的！赞赞赞 </li>
                 <li class="fly-list-li" style="opacity: 0.6;">
-                  2018-04-14 云南张*[130****9800]
+                  <%= commentTime %> 云南张*[130****9800]
                   <br> 第一次认真评价!产品绝对真实我真的领取了，大家可以放心领，绝对超值 </li>
                 <li class="fly-list-li" style="opacity: 0.6;">
-                  2018-04-14 辽宁商**[188****4533]
+                  <%= commentTime %> 辽宁商**[188****4533]
                   <br> 活动真实已经领取！放心领取就行了 </li>
                 <li class="fly-list-li" style="opacity: 0.6;">
-                  2018-04-14 山东赵**[139****7621]
+                  <%= commentTime %> 山东赵**[139****7621]
                   <br> 在这里给商家6666，东西绝对太值了，专柜都1000多 </li>
                 <li class="fly-list-li" style="opacity: 0.6;">
-                  2018-04-14 上海宫**[152****9081]
+                  <%= commentTime %> 上海宫**[152****9081]
                   <br> 好多活动免费送的，之前都上当了，这次收到货后正如商家所说东西是正品 </li>
                 <li class="fly-list-li" style="opacity: 0.6;">
-                  2018-04-14 北京李*[158****8236]
+                  <%= commentTime %> 北京李*[158****8236]
                   <br> 感觉这个镯子5百6百还是值的，毕竟只需39的运费而已还是很好的 </li>
                 <li class="fly-list-li" style="opacity: 0.6;">
-                  2018-04-14 四川隋**[170****4930]
+                  <%= commentTime %> 四川隋**[170****4930]
                   <br> 镯子已经物超所值了，充值卡也是真实的简直赚到起飞！ </li>
                 <li class="fly-list-li" style="opacity: 0.6;">
-                  2018-04-14 内蒙古孙**[188****9013]
+                  <%= commentTime %> 内蒙古孙**[188****9013]
                   <br> 领之前朋友都说我沙比，领过后我说朋友沙比 </li>
                 <li class="fly-list-li" style="opacity: 0.6;">
-                  2018-04-14 内蒙古荀***[133****2525]
+                  <%= commentTime %> 内蒙古荀***[133****2525]
                   <br> 产品相当好了 </li>
               </ul>
             </div>
