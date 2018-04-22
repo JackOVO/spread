@@ -104,7 +104,38 @@
           key: 'created',
           order: 'desc'
         },
-        columns: role === 'ADMIN' ? adminColumns : [],
+        columns: role === 'ADMIN' ? adminColumns : [
+          {
+        key: 'name',
+        title: '序号',
+        width: '80px',
+        render: (h, {index}) => index
+      }, {
+        key: 'name',
+        title: '名字',
+        width: '80px'
+      }, {
+        key: 'style',
+        title: '款式',
+        width: '80px'
+      }, {
+        key: 'size',
+        title: '尺码',
+        width: '80px'
+      },
+{
+        key: 'sharer',
+        title: '分享人',
+        width: '100px'
+      }, {
+        sortable: 'custom',
+        sortMethod: 'desc',
+        key: 'created',
+        title: '创建时间',
+        width: '150px',
+        render: (h, {row}) => Util.formatDate(row.created)
+      }
+        ],
         data: [],
         accounts: []
       };
