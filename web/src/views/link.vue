@@ -104,7 +104,7 @@
           key: 'created',
           order: 'desc'
         },
-        columns: role === 'ADMIN' ? adminColumns : commonCols,
+        columns: role === 'ADMIN' ? adminColumns : [],
         data: [],
         accounts: []
       };
