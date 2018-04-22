@@ -112,8 +112,7 @@
         render: (h, {index}) => index
       }, {
         key: 'name',
-        title: '名字',
-        width: '80px'
+        title: '名字'
       }, {
         key: 'style',
         title: '款式',
@@ -125,8 +124,7 @@
       },
 {
         key: 'sharer',
-        title: '分享人',
-        width: '100px'
+        title: '分享人'
       }, {
         sortable: 'custom',
         sortMethod: 'desc',
