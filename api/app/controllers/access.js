@@ -11,6 +11,19 @@ router.get('/', (req, res, next) => {
   });
 });
 
+router.get('/full', (req, res, next) => {
+  Access.find()
+    .populate([
+      { path: 'account', select: '-__v -_id -password -created -status -role' },
+      { path: 'product', select: '-__v -form -introduce' },
+      { path: 'order', select: '_id' }
+    ])
+    .exec((err, access) => {
+      if (err) return next(err);
+      res.json(access);
+    });
+});
+
 router.get('/:id', (req, res) => {
   const _id = req.params.id;
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
   <title><%- title %></title>
   <meta charset="UTF-8">
@@ -16,7 +16,7 @@
       font-size: 14px;
       font-weight: bold;
       background-color: #000;
-      background-image: url('/api/img/body_bg.png');
+      background-image: url('/img/body_bg.png');
       background-position: top center;
       background-attachment: fixed;
       background-size: cover;
@@ -165,13 +165,13 @@
     <div class="row">
       <div class="img-list col-md-12">
         <img src="/img/img_1.png" alt="">
-        <img src="/api/img/img_2.png" alt="">
-        <img src="/api/img/img_3.png" alt="">
-        <img src="/api/img/img_4.png" alt="">
-        <img src="/api/img/img_5.png" alt="">
-        <img src="/api/img/img_6.png" alt="">
-        <img src="/api/img/size_control.png" alt="">
-        <img src="/api/img/explain.png" alt="">
+        <img src="/img/img_2.png" alt="">
+        <img src="/img/img_3.png" alt="">
+        <img src="/img/img_4.png" alt="">
+        <img src="/img/img_5.png" alt="">
+        <img src="/img/img_6.png" alt="">
+        <img src="/img/size_control.png" alt="">
+        <img src="/img/explain.png" alt="">
       </div>
     </div>
     <div class="slot"></div>
@@ -181,12 +181,12 @@
           <div id="color-group" class="form-group">
             <div class="label required">选择颜色</div>
             <label class="img-radio" for="radio1">
-              <img src="/api/img/input_color1.png" alt="">
+              <img src="/img/input_color1.png" alt="">
               <input id="radio1" name="color" value="白色" type="radio" checked>
               <span>免费领取价值598元阿迪套装</span>
             </label>
             <label class="img-radio" for="radio2">
-              <img src="/api/img/input_color2.png" alt="">
+              <img src="/img/input_color2.png" alt="">
               <input id="radio2" name="color" value="黑色"  type="radio">
               <span>免费领取价值598元阿迪套装</span>
             </label>
@@ -232,12 +232,12 @@
 
           <div id="name-group" class="form-group">
             <div class="label required">姓名</div>
-            <input name="name" type="text" placeholder="请填写您的姓名...">
+            <input name="customerName" type="text" placeholder="请填写您的姓名...">
           </div>
 
           <div id="phone-group" class="form-group">
             <div class="label required">电话</div>
-            <input name="phone" type="text" placeholder="请填写您的电话...">
+            <input name="customerPhone" type="text" placeholder="请填写您的电话...">
           </div>
 
           <div id="cjk-group" class="form-group">
@@ -283,11 +283,16 @@
     </div>
   </div>
   <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-  <script src="/api/js/arrds.js"></script>
-  <script src="/api/js/cascade.js"></script>
+  <script src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+  <script src="/js/arrds.js"></script>
+  <script src="/js/cascade.js"></script>
   <script>
-    const account = '<%- account %>';
-    console.info('account', account);
+    // 静态页更换获取IP方法, nginx, api?
+    const clientIP = '<%- clientIP %>';
+    const account = '<%- accountId %>';
+    const product = '<%- product %>';
+    const cookieOptions = { expires: 1 };
+
     $().ready(function() {
       var $prov = $('#prov-select');
       var $city = $('#city-select');
@@ -346,24 +351,76 @@
         var regionName = window.addr_arr[tpData.city].find(function(row) {
           return row[0] === tpData.region;
         })[1];
+        var address = tpData.address;
 
 
-        tpData.prov = provName;
-        tpData.city = cityName;
-        tpData.region = regionName;
-        tpData.sharer = account;
+        tpData.customerAddress = [provName, cityName, regionName, address];
+        tpData.product = '<%- product %>';
+        tpData.model = [
+          '充值卡:'+tpData.cjk,
+          '颜色:'+tpData.color,
+          '尺码:'+tpData.size,
+          '款式:'+tpData.style,
+        ];
+        tpData.account = account;
+        tpData.accessLink = location.href;
+
         $.ajax({
-          url: '/api/link',
+          url: '/order',
           type: 'post',
-          data: tpData,
-          dataType: 'json',
+          data: JSON.stringify(tpData),
+          contentType: 'application/json; charset=utf-8',
         }).then(function(res) {
           $('.container').html('<div class="row"><div class="col-md-12" style="padding: 90px; text-align: center; font-size: 30px;">恭喜, 提交成功!</div></div>');
+          $.cookie('orderID', res.order._id, cookieOptions);
         }, function() {
           console.error('😁');
+          $('.container').html('<div class="row"><div class="col-md-12" style="padding: 90px; text-align: center; font-size: 30px;">抱歉, 提交失败, 请确认您访问页面是否正确!</div></div>');
         });
+
+        return false;
       });
     });
+
+    function pushAccess() {
+      var now = Date.now();
+      var orderID = $.cookie('orderID');
+      var accessID = $.cookie('accessID');
+      var accessTime = $.cookie('accessTime') || now;
+
+      if (!accessID) {
+        var data = {
+          time: accessTime,
+          shareLink: location.href,
+          clientIP: clientIP,
+          remain: parseInt((now - accessTime) / 1000),
+          account: account,
+          product: product
+        };
+
+        if (orderID) {
+          data.order = orderID;
+        }
+
+        $.post('/access', data).then(function(res) {
+          $.cookie('leaveTime', now, cookieOptions);
+          $.cookie('accessID', res.access._id, cookieOptions);
+        }, function(err) {
+          console.error('访问记录失败!', err);
+        });
+      }
+    }
+
+
+    if ($.cookie) {
+      if (!$.cookie('accessTime')) {
+        $.cookie('accessTime', Date.now(), cookieOptions);
+      }
+
+      window.onbeforeunload = function() {
+        pushAccess();
+      };
+    }
   </script>
 </body>
 </html>

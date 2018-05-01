@@ -31,4 +31,16 @@ const config = {
   }
 };
 
+config[env].viewMap = {
+  wear: {
+    value: 'old_wear',
+    title: '新★ 正 品 ★',
+    content: '新★ 正 品 ★',
+    product: '5ae70de8c4041ce7d90e4372'
+  },
+  bracelet: {
+    value: 'old_bracelet'
+  }
+};
+
 module.exports = config[env];

@@ -35,7 +35,7 @@
           },
           {
             key: 'customerName',
-            width: 90,
+            width: 100,
             title: '客户姓名'
           },
           {
@@ -58,7 +58,7 @@
           },
           {
             key: 'status',
-            width: 70,
+            width: 80,
             title: '状态'
           },
           {

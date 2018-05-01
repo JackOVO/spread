@@ -6,14 +6,17 @@ const AccessSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  shareLink: String,
-  accountAlias: String,
+  clientIP: String,
+  remain: Number,
+  shareLink: {
+    type: String,
+    required: true
+  },
   account: {
     type: Schema.Types.ObjectId,
     required: true,
     ref: 'Account'
   },
-  productName: String,
   product: {
     type: Schema.Types.ObjectId,
     required: true,
