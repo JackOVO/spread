@@ -3,9 +3,12 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const AccountSchema = new Schema({
-  username: {
+  name: {
     type: String,
     required: true
+  },
+  alias: {
+    type: String
   },
   password: {
     type: String,
@@ -33,15 +36,24 @@ const AccountSchema = new Schema({
   }
 });
 
-AccountSchema.pre('save', function(next)  {
+AccountSchema.pre('save', function(next) {
   const sha = crypto.createHash('sha512');
   sha.update(this.password + '一个盐');
   this.password = sha.digest('hex');
   next();
 });
 
+AccountSchema.pre('findOneAndUpdate', function(next) {
+  if (this._update.password) {
+    const sha = crypto.createHash('sha512');
+    sha.update(this._update.password + '一个盐');
+    this._update.password = sha.digest('hex');
+  }
+  next();
+});
+
 AccountSchema.methods = {
-  comparePwd: function (password, cb) {
+  comparePwd: function(password, cb) {
     const sha = crypto.createHash('sha512');
     sha.update(password + '一个盐');
     var d = sha.digest('hex');
@@ -50,4 +62,3 @@ AccountSchema.methods = {
 };
 
 mongoose.model('Account', AccountSchema);
-
