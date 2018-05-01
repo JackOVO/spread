@@ -7,7 +7,7 @@
         placeholder="账户名称搜索..." />
     </Col>
     <Col span="20" class-name="text-right">
-      <Button @click="modal = true">创建用户</Button>
+      <Button type="primary" @click="modal = true">创建用户</Button>
       <!-- <Button>重置密码</Button> -->
     </Col>
     <Col span="24" style="height: 20px;"></Col>
@@ -17,7 +17,8 @@
         stripe
         :loading="loading"
         :columns="columns"
-        :data="filterData" />
+        :data="filterData"
+        @on-select="handleTableSelect" />
     </Col>
     <Col>
       <Modal
@@ -29,8 +30,14 @@
         @on-ok="handleAccountCreate">
         
         <Form ref="form" label-position="top" :model="form" :rules="rules">
-          <FormItem prop="username">
-            <Input v-model="form.username" placeholder="请输入用户名称...">
+          <FormItem prop="name">
+            <Input v-model="form.name" placeholder="请输入账户名称...">
+              <Icon type="ios-person-outline" slot="prepend"></Icon>
+            </Input>
+          </FormItem>
+
+           <FormItem prop="alias">
+            <Input v-model="form.alias" placeholder="请输入用户姓名...">姓名
               <Icon type="ios-person-outline" slot="prepend"></Icon>
             </Input>
           </FormItem>
@@ -77,14 +84,18 @@
         keyword: '',
         form: {},
         rules: {
-          username: [{
+          name: [{
             required: true,
-            message: '请填写用户名称!',
+            message: '请填写账户名称!',
             trigger: 'blur'
           }, {
             pattern: /^[a-z]\w{3,12}$/,
             message: '以小写字母开头, 长度在4~12之间, 只能包含字母、数字和下划线!',
             trigger: 'blur'
+          }],
+          alias: [{
+            required: true,
+            message: '请填写姓名!',
           }],
           password: [{
             required: true,
@@ -118,13 +129,18 @@
             width: 60,
             align: 'center'
           }, {
-            key: 'username',
-            title: '用户名称'
+            key: 'name',
+            title: '账户名称'
+          }, {
+            key: 'alias',
+            title: '姓名'
           }, {
             key: 'phone',
+            width: 120,
             title: '联系方式'
           }, {
             key: 'role',
+            width: 100,
             title: '角色'
           }, {
             key: 'created',
@@ -135,7 +151,7 @@
             title: '状态',
             width: 110,
             align: 'center',
-            render: (h, {row: {username, status}}) => {
+            render: (h, {row: {name, status}}) => {
               return h('i-switch', {
                   props: {
                     size: 'large',
@@ -143,7 +159,7 @@
                   },
                   on: {
                     'on-change': val => {
-                      this.updateAccountStatus(username, val ? 'ACTIVE' : 'DISABLED')
+                      this.updateAccountStatus(name, val ? 'ACTIVE' : 'DISABLED')
                     }
                   },
                   scopedSlots: {
@@ -160,7 +176,7 @@
     computed: {
       filterData: function() {
         return this.data.filter(account =>
-          account.username.indexOf(this.keyword) >= 0);
+          account.name.indexOf(this.keyword) >= 0);
       }
     },
     methods: {
@@ -187,8 +203,9 @@
           }
 
           Util.ajax.post('/account', {
+            name: this.form.name,
+            alias: this.form.alias,
             phone: this.form.phone,
-            username: this.form.username,
             password: this.form.password
           }).then(({data}) => {
             this.changeLoading();
@@ -209,6 +226,9 @@
         }).catch(err => {
           this.$Message.err(err);
         });
+      },
+      handleTableSelect: function(selection, row) {
+        console.info(selection, row);
       }
     },
     created() {

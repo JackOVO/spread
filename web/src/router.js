@@ -1,10 +1,10 @@
-import Main from './views/main.vue'
+import Main from './views/main.vue';
 
 const signinRouter = {
   path: '/signin',
   name: 'signin',
-  meta: {title: '登录'},
-  component: (resolve) => require(['./views/signin.vue'], resolve)
+  meta: { title: '登录' },
+  component: resolve => require(['./views/signin.vue'], resolve)
 };
 
 const otherRouter = {
@@ -16,54 +16,103 @@ const otherRouter = {
     {
       path: 'home',
       name: 'home_index',
-      component: (resolve) => require(['./views/home.vue'], resolve)
+      component: resolve => require(['./views/home.vue'], resolve)
     }
   ]
 };
 
-const appRouter = [{
-  path: '/account',
-  name: 'account',
-  meta: {title: '账户管理'},
-  access: 'admin',
-  component: Main,
-  children: [
-    {
-      path: 'index',
-      name: 'account_index',
-      access: 'admin',
-      component: (resolve) => require(['./views/account.vue'], resolve)
-    }
-  ]
-}, {
-  path: '/link',
-  name: 'link',
-  meta: {title: '链接管理'},
-  access: 'admin',
-  component: Main,
-  children: [
-    {
-      path: 'index',
-      name: 'link_index',
-      access: 'admin',
-      component: (resolve) => require(['./views/link.vue'], resolve)
-    }
-  ]
-}, {
-  path: '/qr',
-  name: 'qr',
-  meta: {title: '二维码生成'},
-  access: 'admin',
-  component: Main,
-  children: [
-    {
-      path: 'index',
-      name: 'qr_index',
-      access: 'admin',
-      component: (resolve) => require(['./views/QR.vue'], resolve)
-    }
-  ]
-}];
+const appRouter = [
+  {
+    path: '/account',
+    name: 'account',
+    meta: { title: '账户管理' },
+    access: 'admin',
+    component: Main,
+    children: [
+      {
+        path: 'index',
+        name: 'account_index',
+        access: 'admin',
+        component: resolve => require(['./views/account.vue'], resolve)
+      }
+    ]
+  },
+  {
+    path: '/product',
+    name: 'product',
+    meta: { title: '产品管理' },
+    access: 'admin',
+    component: Main,
+    children: [
+      {
+        path: 'index',
+        name: 'product_index',
+        access: 'admin',
+        component: resolve => require(['./views/product.vue'], resolve)
+      }
+    ]
+  },
+  {
+    path: '/access',
+    name: 'access',
+    meta: { title: '访问信息' },
+    access: 'admin',
+    component: Main,
+    children: [
+      {
+        path: 'index',
+        name: 'access_index',
+        access: 'admin',
+        component: resolve => require(['./views/access.vue'], resolve)
+      }
+    ]
+  },
+  {
+    path: '/linkTemplate',
+    name: 'linkTemplate',
+    meta: { title: '链接模板' },
+    access: 'admin',
+    component: Main,
+    children: [
+      {
+        path: 'index',
+        name: 'linkTemplate_index',
+        access: 'admin',
+        component: resolve => require(['./views/linkTemplate.vue'], resolve)
+      }
+    ]
+  },
+  {
+    path: '/order',
+    name: 'order',
+    meta: { title: '订单管理' },
+    access: 'admin',
+    component: Main,
+    children: [
+      {
+        path: 'index',
+        name: 'order_index',
+        access: 'admin',
+        component: resolve => require(['./views/order.vue'], resolve)
+      }
+    ]
+  },
+  {
+    path: '/qr',
+    name: 'qr',
+    meta: { title: '二维码生成' },
+    access: 'admin',
+    component: Main,
+    children: [
+      {
+        path: 'index',
+        name: 'qr_index',
+        access: 'admin',
+        component: resolve => require(['./views/QR.vue'], resolve)
+      }
+    ]
+  }
+];
 
 const routers = [
   signinRouter,

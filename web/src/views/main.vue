@@ -50,33 +50,42 @@
   <div class="layout">
     <Layout :style="{minHeight: '100vh'}">
       <Sider collapsible :collapsed-width="80" width="180" v-model="isCollapsed">
-        <img class="logo" src="src/styles/images/sider-logo.svg" alt="logo">
+        <img class="logo" src="/src/styles/images/sider-logo.svg" alt="logo">
         <Menu
           width="auto"
           theme="dark"
           :active-name="$route.name"
           :class="menuitemClasses"
-          @on-select="hanldeMenuSelectChange"   >
+          @on-select="hanldeMenuSelectChange">
+
           <MenuItem name="account_index" v-if="role === 'ADMIN'">
             <Icon type="ios-people"></Icon>
             <span>账户管理</span>
           </MenuItem>
-          <MenuItem name="link_index">
-            <Icon type="at"></Icon>
-            <span>链接管理</span>
-          </MenuItem>
           <MenuItem name="qr_index">
             <Icon type="qr-scanner"></Icon>
-            <span>二维码</span>
+            <span>二维码啊</span>
           </MenuItem>
-         <!--  <MenuItem name="commodity_index">
-            <Icon type="image"></Icon>
-            <span>商品管理</span>
+          <MenuItem name="access_index">
+            <Icon type="paper-airplane"></Icon>
+            <span>访问信息</span>
           </MenuItem>
-          <MenuItem name="order_index">
-            <Icon type="bonfire"></Icon>
+           <MenuItem name="order_index">
+            <Icon type="bag"></Icon>
             <span>订单管理</span>
-          </MenuItem> -->
+          </MenuItem>
+          <MenuItem name="domain_index">
+            <Icon type="network"></Icon>
+            <span>域名管理</span>
+          </MenuItem>
+          <MenuItem name="linkTemplate_index">
+            <Icon type="at"></Icon>
+            <span>链接模板</span>
+          </MenuItem>
+          <MenuItem name="product_index">
+            <Icon type="image"></Icon>
+            <span>产品管理</span>
+          </MenuItem>
         </Menu>
       </Sider>
       <Layout>

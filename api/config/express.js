@@ -23,23 +23,6 @@ module.exports = (app, config) => {
   app.set('views', config.root + '/app/views');
   app.set('view engine', 'ejs');
 
-  // app.all('*', function(req, res, next) {
-  //   // res.header("Access-Control-Allow-Origin", req.headers.origin);
-  //   // res.header("Access-Control-Allow-Credentials", true);
-  //   // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type");
-  //   // res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-  //   // res.header("X-Powered-By",' 3.2.1')
-  //   // res.header("Content-Type", "application/json;charset=utf-8");
-
-  //   // res.header("Access-Control-Allow-Origin", req.headers.origin); //需要显示设置来源
-  //   // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  //   // res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
-  //   // res.header("Access-Control-Allow-Credentials", true); //带cookies
-  //   // res.header("X-Powered-By",' 3.2.1')
-  //   // res.header("Content-Type", "application/json;charset=utf-8");
-  //   next();
-  // });
-
   app.use(favicon(config.root + '/public/img/favicon.ico'));
   app.use(logger('dev'));
   app.use(bodyParser.json());
@@ -61,6 +44,25 @@ module.exports = (app, config) => {
   app.use(compress());
   app.use(express.static(config.root + '/public'));
   app.use(methodOverride());
+
+  app.all('*', function(req, res, next) {
+    // res.header("Access-Control-Allow-Origin", req.headers.origin);
+    // res.header("Access-Control-Allow-Credentials", true);
+    // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type");
+    // res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    // res.header("X-Powered-By",' 3.2.1')
+    // res.header("Content-Type", "application/json;charset=utf-8");
+
+    // res.header("Access-Control-Allow-Origin", req.headers.origin); //需要显示设置来源
+    // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    // res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+    // res.header("Access-Control-Allow-Credentials", true); //带cookies
+    // res.header("X-Powered-By",' 3.2.1')
+    // res.header("Content-Type", "application/json;charset=utf-8");
+
+    console.info('session', req.session.account);
+    next();
+  });
 
   var controllers = glob.sync(config.root + '/app/controllers/*.js');
   controllers.forEach(controller => {

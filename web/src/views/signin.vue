@@ -5,8 +5,7 @@
   .logo {
     width: 100%;
     height: 120px;
-    margin-top: 10px;
-    margin-bottom: 20px;
+    margin: 10px 0 10px 0;
   }
 </style>
 <template>
@@ -14,8 +13,8 @@
     <Card class="wrapper">
       <img class="logo" src="src/styles/images/logo.svg" alt="logo">
       <Form ref="form" label-position="top" :model="form" :rules="rules">
-        <FormItem prop="username">
-          <Input v-model="form.username" placeholder="请输入用户名称...">
+        <FormItem prop="name">
+          <Input v-model="form.name" placeholder="请输入用户名称...">
             <Icon type="ios-person-outline" slot="prepend"></Icon>
           </Input>
         </FormItem>
@@ -41,7 +40,7 @@
       return {
         form: {},
         rules: {
-          username: [{
+          name: [{
             required: true,
             message: '请填写用户名称!',
             trigger: 'blur'
@@ -67,7 +66,7 @@
               }
 
               sessionStorage.account_id = data._id;
-              sessionStorage.username = data.username;
+              sessionStorage.name = data.name;
               sessionStorage.role = data.role;
 
               this.$Message.success('登录成功.');

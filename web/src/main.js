@@ -8,18 +8,15 @@ import App from './app.vue';
 import 'iview/dist/styles/iview.css';
 import './styles/main.css';
 
-
 Vue.use(VueRouter);
 Vue.use(Vuex);
 
 Vue.use(iView);
 
-
-
 // 路由配置
 const RouterConfig = {
-    mode: 'history',
-    routes: Routers
+  mode: 'history',
+  routes: Routers
 };
 const router = new VueRouter(RouterConfig);
 
@@ -43,30 +40,20 @@ router.beforeEach((to, from, next) => {
 });
 
 router.afterEach(() => {
-    iView.LoadingBar.finish();
-    window.scrollTo(0, 0);
+  iView.LoadingBar.finish();
+  window.scrollTo(0, 0);
 });
-
 
 const store = new Vuex.Store({
-    state: {
-
-    },
-    getters: {
-
-    },
-    mutations: {
-
-    },
-    actions: {
-
-    }
+  state: {},
+  getters: {},
+  mutations: {},
+  actions: {}
 });
 
-
 new Vue({
-    el: '#app',
-    router: router,
-    store: store,
-    render: h => h(App)
+  el: '#app',
+  router: router,
+  store: store,
+  render: h => h(App)
 });

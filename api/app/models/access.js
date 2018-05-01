@@ -6,7 +6,7 @@ const AccessSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  domain: String,
+  shareLink: String,
   accountAlias: String,
   account: {
     type: Schema.Types.ObjectId,

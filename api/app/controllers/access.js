@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const router = express.Router();
 const Access = mongoose.model('Access');
 
-// TODO: API 分页
+// TODO: API 分页, 时间排序
 router.get('/', (req, res, next) => {
   Access.find((err, access) => {
     if (err) return next(err);

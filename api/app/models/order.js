@@ -12,7 +12,8 @@ const OrderSchema = new Schema({
   },
   customerAddress: {
     type: Array,
-    required: true
+    required: true,
+    default: []
   },
   expressNumber: String,
   product: {
@@ -47,6 +48,11 @@ const OrderSchema = new Schema({
     type: String,
     required: true
   }
+});
+
+OrderSchema.pre('findOneAndUpdate', function(next) {
+  this._update.changed = Date.now();
+  next();
 });
 
 mongoose.model('Order', OrderSchema);
