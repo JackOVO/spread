@@ -9,6 +9,7 @@ router.get('/', (req, res) => {
   res.render('index', { title: 'API 服务' });
 });
 
+// TODO: 类型判断, 给商品ID?
 router.get('/view/:type/:value', (req, res) => {
   const { type, value } = req.params;
 
@@ -22,7 +23,12 @@ router.get('/view/:type/:value', (req, res) => {
       query: req.query
     });
   }
-  // const typeValue = config.viewMap[type] || type;
+});
+
+// TODO: 应该不是指定域名, 从数据库中查到
+router.get('/proxy/:domain/:load([/\\w]+)', (req, res) => {
+  const { domain, load } = req.params;
+  res.redirect(302, `http://${domain}/${load}`);
 });
 
 module.exports = app => {

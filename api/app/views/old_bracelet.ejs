@@ -435,7 +435,7 @@
           id="pinglun"
           class="layui-form layui-form-pane"
           style="background-color:#ffffff;   padding:10px; box-sizing: border-box;">
-          <form>
+          <form onsubmit="return false;">
               <div id="gogogo" class="layui-collapse" lay-filter="test">
                   <div class="layui-colla-item">
                       <h2 class="layui-colla-title">请选择产品<i class="layui-icon layui-colla-icon"></i></h2>
@@ -480,7 +480,7 @@
               <div class="layui-form-item">
                   <label class="layui-form-label">地区</label>
                   <div class="layui-input-block">
-                      <input type="text" name="city" autocomplete="off" data-toggle="city-picker" placeholder="请输入标题" lay-verify="required" class="layui-input city-picker-input"
+                      <input type="text" name="city" autocomplete="off" data-toggle="city-picker" placeholder="请选择地区" lay-verify="required" class="layui-input city-picker-input"
                       data-responsive="”true”">
                   </div>
               </div>
@@ -488,7 +488,7 @@
               <div class="layui-form-item">
                   <label class="layui-form-label">详细地址</label>
                   <div class="layui-input-block">
-                      <input type="text" name="dizhi" lay-verify="required" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                      <input type="text" name="dizhi" lay-verify="required" autocomplete="off" placeholder="请输入详细地址" class="layui-input">
                   </div>
               </div>
 
@@ -534,6 +534,7 @@
   </div>
 
   <script src="/tmp/jquery-1.9.1.min.js"></script>
+  <script src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
   <script src="/tmp/layui.js"></script>
   <!-- <script src="/tmp/home.js"></script> -->
 
@@ -581,7 +582,11 @@
     });
   </script>
   <script>
-    var account = '<%- account %>';
+    var account = '<%- accountId %>';
+    var product = '<%- product %>';
+    var clientIP = '<%- clientIP %>';
+    const cookieOptions = { expires: 1 };
+
     layui.use('form', function () {
       var form = layui.form(), jq = layui.jquery;
       form.on('submit(comment_add)', function (data) {
@@ -590,40 +595,75 @@
         });
         var param = data.field;
 
-        // console.info(param);
         var group = param.city.split('/');
         var tpData = {
-          color: '镯子',
-          style: '镯子',
-          size: 'TMP',
-          cjk: param.chongzhi,
           yf: param.youfei,
-          address: param.dizhi,
-          name: param.content,
-          phone: param.dianhua,
-          sharer: account,
-          prov: group[0],
-          city: group[1],
-          region: group[2]
+          customerName: param.content,
+          customerPhone: param.dianhua,
+          customerAddress: [group[0], group[1], group[2], param.dizhi],
+          model: ['充值卡:'+param.chongzhi, '款式:镯子'],
+          account: account,
+          product: product,
+          accessLink: location.href
         };
 
         jq.ajax({
-          url: '/api/link',
+          url: '/order',
           type: 'post',
-          data: tpData,
-          dataType: 'json',
+          data: JSON.stringify(tpData),
+          contentType: 'application/json; charset=utf-8',
         }).then(function (res) {
           layer.close(loading);
-          layer.msg('恭喜, 提交成功, 我们将尽快给您发货!', { icon: 1, time: 1500 }, function () {
+          layer.msg('恭喜, 提交成功, 我们将尽快给您发货!', { icon: 1, time: 2000 }, function () {
             location.reload();
           });
+          $.cookie('orderID', res.order._id, cookieOptions);
         }, function () {
           layer.close(loading);
-          layer.msg('抱歉, 服务器错误!', { icon: 2, anim: 6, time: 1000 });
+          layer.msg('抱歉, 请确认您访问页面是否正确!', { icon: 2, anim: 6, time: 1000 });
           console.error('😁');
         });
         return false;
       })
     });
+    
+    function pushAccess() {
+      var now = Date.now();
+      var orderID = $.cookie('orderID');
+      var accessID = $.cookie('accessID');
+      var accessTime = $.cookie('accessTime') || now;
+
+      if (!accessID) {
+        var data = {
+          time: accessTime,
+          shareLink: location.href,
+          clientIP: clientIP,
+          remain: parseInt((now - accessTime) / 1000),
+          account: account,
+          product: product
+        };
+
+        if (orderID) {
+          data.order = orderID;
+        }
+
+        $.post('/access', data).then(function(res) {
+          $.cookie('leaveTime', now, cookieOptions);
+          $.cookie('accessID', res.access._id, cookieOptions);
+        }, function(err) {
+          console.error('访问记录失败!', err);
+        });
+      }
+    }
+
+    if ($.cookie) {
+      if (!$.cookie('accessTime')) {
+        $.cookie('accessTime', Date.now(), cookieOptions);
+      }
+
+      window.onbeforeunload = function() {
+        pushAccess();
+      };
+    }
   </script>
 </body>

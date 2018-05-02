@@ -58,7 +58,6 @@
           },
           {
             key: 'alias',
-            width: 100,
             title: '别名'
           },
           {

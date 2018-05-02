@@ -177,7 +177,7 @@
     <div class="slot"></div>
     <div class="row">
       <div class="col-md-12">
-        <form id="form">
+        <form id="form" onsubmit="return false;">
           <div id="color-group" class="form-group">
             <div class="label required">选择颜色</div>
             <label class="img-radio" for="radio1">
@@ -410,7 +410,6 @@
         });
       }
     }
-
 
     if ($.cookie) {
       if (!$.cookie('accessTime')) {

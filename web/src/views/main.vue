@@ -70,8 +70,12 @@
             <Icon type="paper-airplane"></Icon>
             <span>访问信息</span>
           </MenuItem>
+          <MenuItem name="resource_index">
+            <Icon type="images"></Icon>
+            <span>资源管理</span>
+          </MenuItem>
            <MenuItem name="order_index">
-            <Icon type="bag"></Icon>
+            <Icon type="clipboard"></Icon>
             <span>订单管理</span>
           </MenuItem>
           <MenuItem name="domain_index">
@@ -83,7 +87,7 @@
             <span>链接模板</span>
           </MenuItem>
           <MenuItem name="product_index">
-            <Icon type="image"></Icon>
+            <Icon type="tshirt"></Icon>
             <span>产品管理</span>
           </MenuItem>
         </Menu>
