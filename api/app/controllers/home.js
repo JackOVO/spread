@@ -1,28 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const config = require('../../config/config');
 
 // const mongoose = require('mongoose');
 // const Article = mongoose.model('Article');
 
 router.get('/', (req, res) => {
   res.render('index', { title: 'API 服务' });
-});
-
-// TODO: 类型判断, 给商品ID?
-router.get('/view/:type/:value', (req, res) => {
-  const { type, value } = req.params;
-
-  if (config.viewMap[type]) {
-    res.render(config.viewMap[type].value, {
-      title: config.viewMap[type].title,
-      content: config.viewMap[type].content,
-      product: config.viewMap[type].product,
-      clientIP: req.ip,
-      accountId: value,
-      query: req.query
-    });
-  }
 });
 
 // TODO: 应该不是指定域名, 从数据库中查到

@@ -43,6 +43,9 @@ config[env].viewMap = {
     title: '新★ 正 品 ★',
     content: '新★ 正 品 ★',
     product: '5ae8421a9e4f9d6cd056d4be'
+  },
+  wximg: {
+    value: 'tmp_wximg'
   }
 };
 

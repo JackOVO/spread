@@ -98,6 +98,21 @@ const appRouter = [
     ]
   },
   {
+    path: '/resource',
+    name: 'resource',
+    meta: { title: '资源管理' },
+    access: 'admin',
+    component: Main,
+    children: [
+      {
+        path: 'index',
+        name: 'resource_index',
+        access: 'admin',
+        component: resolve => require(['./views/resource.vue'], resolve)
+      }
+    ]
+  },
+  {
     path: '/qr',
     name: 'qr',
     meta: { title: '二维码生成' },

@@ -68,7 +68,7 @@
           {
             key: 'created',
             title: '创建时间',
-            width: '150px',
+            width: 150,
             render: (h, {row}) => Util.formatDate(row.created)
           }
          ],
