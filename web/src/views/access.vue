@@ -4,7 +4,8 @@
       <Select
         v-model="selectedAccountId"
         @on-change="loadData"
-        placeholder="请选择账户">
+        placeholder="请选择账户"
+        :disabled="role !== 'ADMIN'">
         <Option value="" key="">全部</Option>
         <Option v-for="item in accounts" :value="item._id" :key="item._id">
           {{ item.name }}
@@ -39,6 +40,7 @@
    export default {
      data() {
        return {
+         role: sessionStorage.role,
          loading: false,
          columns: [
           {
@@ -91,7 +93,7 @@
            sizeOpts: [30, 50, 100]
          },
          data: [],
-         selectedAccountId: '',
+         selectedAccountId: sessionStorage.account_id,
          accounts: []
        };
      },

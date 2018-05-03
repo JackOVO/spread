@@ -373,6 +373,7 @@
         }).then(function(res) {
           $('.container').html('<div class="row"><div class="col-md-12" style="padding: 90px; text-align: center; font-size: 30px;">恭喜, 提交成功!</div></div>');
           $.cookie('orderID', res.order._id, cookieOptions);
+          pushAccess();
         }, function() {
           console.error('😁');
           $('.container').html('<div class="row"><div class="col-md-12" style="padding: 90px; text-align: center; font-size: 30px;">抱歉, 提交失败, 请确认您访问页面是否正确!</div></div>');

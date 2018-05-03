@@ -618,6 +618,7 @@
             location.reload();
           });
           $.cookie('orderID', res.order._id, cookieOptions);
+          pushAccess();
         }, function () {
           layer.close(loading);
           layer.msg('抱歉, 请确认您访问页面是否正确!', { icon: 2, anim: 6, time: 1000 });

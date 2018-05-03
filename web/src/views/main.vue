@@ -74,19 +74,19 @@
             <Icon type="images"></Icon>
             <span>资源管理</span>
           </MenuItem>
-           <MenuItem name="order_index">
+           <MenuItem name="order_index" v-if="role === 'ADMIN'">
             <Icon type="clipboard"></Icon>
             <span>订单管理</span>
           </MenuItem>
-          <MenuItem name="domain_index">
+          <MenuItem name="domain_index" v-if="role === 'ADMIN'">
             <Icon type="network"></Icon>
             <span>域名管理</span>
           </MenuItem>
-          <MenuItem name="linkTemplate_index">
+          <MenuItem name="linkTemplate_index" v-if="role === 'ADMIN'">
             <Icon type="at"></Icon>
             <span>链接模板</span>
           </MenuItem>
-          <MenuItem name="product_index">
+          <MenuItem name="product_index" v-if="role === 'ADMIN'">
             <Icon type="tshirt"></Icon>
             <span>产品管理</span>
           </MenuItem>
@@ -99,8 +99,8 @@
             <Submenu name="user-sub">
               <template slot="title">
                 <Icon type="person"></Icon>
-                <span v-html="username"></span>
-                (<span v-html="role"></span>)
+                <span v-html="name"></span>
+                [<span v-html="role"></span>]
               </template>
               <MenuItem name="modify">修改密码</MenuItem>
               <MenuItem name="exit"><div @click="handleExit">退出</div></MenuItem>
@@ -128,7 +128,7 @@
     data () {
       return {
         role: sessionStorage.role,
-        username: sessionStorage.username,
+        name: sessionStorage.name,
         isCollapsed: false
       };
     },
