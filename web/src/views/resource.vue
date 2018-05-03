@@ -5,7 +5,11 @@
         <Progress :percent="progress / 100" status="active"></Progress>
       </div>
     </Spin>
-    <Col span="24" class-name="text-right">
+    <Col span="21" class-name="text-right">
+      <Button  @click="handleResourceUpdate">编辑</Button>
+    </Col>
+    <Col span="3" class-name="text-right">
+      
       <Upload
         action=""
         :before-upload="handleUpload"
@@ -19,7 +23,51 @@
         stripe
         :loading="loading"
         :columns="columns"
-        :data="filterData" />
+        :data="filterData"
+        @on-select="handleTableSelect" />
+    </Col>
+    <Col span="24" class="text-right" style="margin-top: 20px">
+      <Page 
+        :total="page.total"
+        :page-size="page.size"
+        :current="page.current"
+        :page-size-opts="page.sizeOpts"
+        @on-change="handePageChange"
+        @on-page-size-change="handePageSizeChange"
+        show-total show-sizer></Page>
+    </Col>
+    <Col>
+      <Modal
+        width="380px"
+        :title="modal.title"
+        ok-text="保存"
+        v-model="modal.value"
+        :loading="modal.loading"
+        @on-ok="handleMondalOK">
+
+        <Form ref="form" label-position="top" :model="form" :rules="rules">
+          <FormItem prop="ossPath">
+            <Input
+              v-model="form.ossPath"
+              :disabled="!!form._id"
+              placeholder="请输入OSS路径..." />
+          </FormItem>
+
+          <FormItem prop="type">
+            <Select v-model="form.type" placeholder="请选择资源分类...">
+              <Option value="PICTURE">资源(微信名片使用)</Option>
+              <Option value="LINK">链接(后续产品使用)</Option>
+            </Select>
+          </FormItem>
+          
+          <FormItem prop="describe">
+            <Input
+              type="textarea"
+              v-model="form.describe"
+              placeholder="请输入资源描述..." />
+          </FormItem>
+        </Form>
+      </Modal>
     </Col>
   </Row>
 </template>
@@ -82,6 +130,19 @@ export default {
           }
         }
       ],
+      form: {},
+      rules: {},
+      modal: {
+        value: false,
+        title: "标题",
+        loading: true
+      },
+      page: {
+        current: 1,
+        total: 0,
+        size: 10,
+        sizeOpts: [10, 20, 30]
+      },
       data: []
     }
   },
@@ -97,6 +158,12 @@ export default {
     }
   },
   methods: {
+    changeLoading() {
+      this.modal.loading = false;
+      this.$nextTick(() => {
+        this.modal.loading = true;
+      });
+    },
     handleUpload (file) {
       if (parseInt(file.size / 1024) > 1024) {
         this.$Message.error('文件大小不能大于 1M', parseInt(file.size / 1024));
@@ -144,8 +211,15 @@ export default {
     },
     loadData: function() {
       this.loading = true;
-      Util.ajax.get('/resource', {}).then(({data}) => {
-        this.data = data;
+      Util.ajax.get('/resource', {
+        params: {
+          offset: (this.page.current - 1) * this.page.size,
+          size: this.page.size,
+          // account: this.selectedAccountId
+        }
+      }).then(({data: {resources, total}}) => {
+        this.data = resources;
+        this.page.total = total;
         this.loading = false;
       }).catch(err => {
         this.$Message.error(err);
@@ -171,6 +245,51 @@ export default {
         this.$Message.error(err);
         this.loading = false;
       });
+    },
+    handleTableSelect: function(selection, row) {
+      this.selectedRow = row;
+    },
+    handleMondalOK: function() {
+      this.$refs.form.validate(valid => {
+        if(!valid) {
+          return this.changeLoading();
+        }
+
+        let path = `/resource/${this.form._id}`;
+        let action = 'put';
+        let data = {
+          type: this.form.type,
+          describe: this.form.describe
+        };
+
+        Util.ajax[action](path, data).then(({data}) => {
+          this.changeLoading();
+          this.modal.value = false;
+          this.loadData();
+          this.$Message.success(data.msg);
+        }).catch(err => {
+          this.changeLoading();
+          this.modal.value = false;
+          this.$Message.err(err.msg);
+        });
+      });
+    },
+    handleResourceUpdate: function() {
+      if (this.selectedRow) {
+        this.modal.value = true;
+        this.modal.title = '编辑资源信息';
+        this.form = this.selectedRow;
+      } else {
+        this.$Message.info('请选择一项资源');
+      }
+    },
+    handePageChange: function(current) {
+      this.page.current = current;
+      this.loadData();
+    },
+    handePageSizeChange: function(size) {
+      this.page.size = size;
+      this.loadData();
     }
   }
 }

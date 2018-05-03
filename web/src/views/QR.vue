@@ -134,8 +134,8 @@ export default {
     },
     loadResources() {
       this.loading = true;
-      Util.ajax.get('/resource', {}).then(({data}) => {
-        this.resources = data;
+      Util.ajax.get('/resource', {}).then(({data: {resources}}) => {
+        this.resources = resources;
         this.loading = false;
       }).catch(err => {
         this.$Message.error(err);

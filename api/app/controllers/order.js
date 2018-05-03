@@ -5,9 +5,44 @@ const Order = mongoose.model('Order');
 
 // TODO: 时间排序
 router.get('/', (req, res, next) => {
-  Order.find((err, orders) => {
-    if (err) return next(err);
-    res.json(orders);
+  const { offset, size, account } = req.query;
+  const offset1 = (offset && offset - 0) || 0;
+  const size1 = (size && size - 0) || 101;
+  const query = account ? { account } : {};
+
+  Order.count(query, (err, total) => {
+    Order.find(query)
+      .skip(offset1)
+      .limit(size1)
+      .sort({ changed: -1 })
+      .exec((err, orders) => {
+        if (err) return next(err);
+        res.json({ orders, total });
+      });
+  });
+});
+
+router.get('/full', (req, res, next) => {
+  const { offset, size, account } = req.query;
+  const query = account ? { account } : {};
+
+  Order.count(query, (err, total) => {
+    let Query = Order.find(query);
+    if (offset && size) {
+      Query = Query.skip(offset - 0).limit(size - 0);
+    }
+    Query = Query.sort({ changed: -1 }).populate([
+      {
+        path: 'account',
+        select: '-__v -password -created -status -role'
+      },
+      { path: 'product', select: '-__v -form -introduce' }
+    ]);
+
+    Query.exec((err, orders) => {
+      if (err) return next(err);
+      res.json({ orders, total });
+    });
   });
 });
 

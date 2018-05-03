@@ -4,9 +4,20 @@ const router = express.Router();
 const Resource = mongoose.model('Resource');
 
 router.get('/', (req, res, next) => {
-  Resource.find((err, resources) => {
-    if (err) return next(err);
-    res.json(resources);
+  const { offset, size } = req.query;
+  const offset1 = (offset && offset - 0) || 0;
+  const size1 = (size && size - 0) || 101;
+  // const query = account ? { account } : {};
+
+  Resource.count({}, (err, total) => {
+    Resource.find()
+      .skip(offset1)
+      .limit(size1)
+      .sort({ changed: -1 })
+      .exec((err, resources) => {
+        if (err) return next(err);
+        res.json({ resources, total });
+      });
   });
 });
 

@@ -12,16 +12,29 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/full', (req, res, next) => {
-  Access.find()
-    .populate([
-      { path: 'account', select: '-__v -_id -password -created -status -role' },
-      { path: 'product', select: '-__v -form -introduce' },
-      { path: 'order', select: '_id' }
-    ])
-    .exec((err, access) => {
-      if (err) return next(err);
-      res.json(access);
-    });
+  const { offset, size, account } = req.query;
+  const offset1 = (offset && offset - 0) || 0;
+  const size1 = (size && size - 0) || 101;
+  const query = account ? { account } : {};
+
+  Access.count(query, (err, total) => {
+    Access.find(query)
+      .skip(offset1)
+      .limit(size1)
+      .sort({ time: -1 })
+      .populate([
+        {
+          path: 'account',
+          select: '-__v -_id -password -created -status -role'
+        },
+        { path: 'product', select: '-__v -form -introduce' },
+        { path: 'order', select: '_id' }
+      ])
+      .exec((err, access) => {
+        if (err) return next(err);
+        res.json({ access, total });
+      });
+  });
 });
 
 router.get('/:id', (req, res) => {
