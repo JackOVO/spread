@@ -113,6 +113,21 @@ const appRouter = [
     ]
   },
   {
+    path: '/domain',
+    name: 'domain',
+    meta: { title: '域名管理' },
+    access: 'admin',
+    component: Main,
+    children: [
+      {
+        path: 'index',
+        name: 'domain_index',
+        access: 'admin',
+        component: resolve => require(['./views/domain.vue'], resolve)
+      }
+    ]
+  },
+  {
     path: '/qr',
     name: 'qr',
     meta: { title: '二维码生成' },

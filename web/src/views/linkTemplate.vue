@@ -2,7 +2,6 @@
   <Row>
     <Col span="24" class-name="text-right">
       <Button type="primary" @click="handleLinkTemplateCreate">创建链接模板</Button>
-      <!-- <Button>重置密码</Button> -->
     </Col>
     <Col span="24" style="height: 20px;"></Col>
     <Col span="24">

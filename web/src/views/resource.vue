@@ -24,11 +24,10 @@
   </Row>
 </template>
 <script>
-import OSS from 'ali-oss';
 import BrowserMd5 from 'browser-md5-file';
 import moment from 'moment';
 import Util from '../libs/util';
-moment.locale('zh-cn');
+
 
 export default {
   data () {
@@ -74,7 +73,7 @@ export default {
           width: 160,
           render: (h, {row}) => {
             if (this.OSSClient.signatureUrl) {
-              var signUrl = this.OSSClient.signatureUrl(row.ossPath);
+              const signUrl = this.OSSClient.signatureUrl(row.ossPath);
               return h('img', {
                 attrs: { src: signUrl },
                 style: { 'max-width': '120px', margin: '0 auto' }});
@@ -87,7 +86,9 @@ export default {
     }
   },
   created() {
-    this.createOSSClient();
+    Util.getOSSClient().then((OSSClient) => {
+      this.OSSClient = OSSClient;
+    });
     this.loadData();
   },
   computed: {
@@ -139,11 +140,6 @@ export default {
             this.uploading = false;
           });
         }
-      });
-    },
-    createOSSClient() {
-      Util.ajax.get('/token').then(({data}) => {
-        this.OSSClient = new OSS.Wrapper(data);
       });
     },
     loadData: function() {

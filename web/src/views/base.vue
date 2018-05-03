@@ -15,7 +15,15 @@
         ok-text="保存"
         :value="modal.value"
         :loading="modal.loading"
-        @on-ok="handleMondalOK" />
+        @on-ok="handleMondalOK" >
+        <Form ref="form" label-position="top" :model="form" :rules="rules">
+          <FormItem prop="name">
+            <Input v-model="form.name" placeholder="请输入账户名称...">
+              <Icon type="ios-person-outline" slot="prepend"></Icon>
+            </Input>
+          </FormItem>
+        </Form>
+      </Modal>
     </Col>
   </Row>
 </template>

@@ -1,6 +1,8 @@
 import axios from 'axios';
+import OSS from 'ali-oss';
 import moment from 'moment';
 import env from '../config/env';
+moment.locale('zh-cn');
 
 let util = {};
 util.title = function(title) {
@@ -28,5 +30,15 @@ util.dateSort = (a, b, order) => {
   const bm = new moment(b);
   return order === 'asc' ? am.unix() - bm.unix() : bm.unix() - am.unix();
 };
+
+util.getOSSClient = () =>
+  new Promise(function(resolve, reject) {
+    util.ajax
+      .get('/token')
+      .then(({ data }) => {
+        resolve(new OSS.Wrapper(data));
+      })
+      .catch(err => reject(err));
+  });
 
 export default util;

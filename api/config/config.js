@@ -31,6 +31,15 @@ const config = {
   }
 };
 
+config[env].oss = {
+  bucket: 'jk-wx',
+  region: 'oss-cn-beijing',
+  ak: {
+    accessKeyId: 'LTAIhUmdS0sYXq7M',
+    accessKeySecret: 'wkk1gxD8pfGfr9NydSLGIE4wfWxc2s'
+  }
+};
+
 config[env].viewMap = {
   wear: {
     value: 'old_wear',
@@ -44,8 +53,10 @@ config[env].viewMap = {
     content: '新★ 正 品 ★',
     product: '5ae8421a9e4f9d6cd056d4be'
   },
-  wximg: {
-    value: 'tmp_wximg'
+  card: {
+    value: 'card',
+    title: '微信名片',
+    content: '微信名片'
   }
 };
 

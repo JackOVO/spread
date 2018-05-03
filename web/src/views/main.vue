@@ -109,7 +109,7 @@
         </Header>
         <Content :style="{padding: '0 16px 16px'}">
           <Breadcrumb :style="{margin: '16px 0'}">
-            <BreadcrumbItem>Home</BreadcrumbItem>
+            <BreadcrumbItem></BreadcrumbItem>
           </Breadcrumb>
           <Card>
             <div>

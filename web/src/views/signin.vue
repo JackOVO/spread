@@ -12,6 +12,7 @@
   <Row><Col :xs="{span: 24}" :md="{span: 6, push: 9}">
     <Card class="wrapper">
       <img class="logo" src="src/styles/images/logo.svg" alt="logo">
+      临时
       <Form ref="form" label-position="top" :model="form" :rules="rules">
         <FormItem prop="name">
           <Input v-model="form.name" placeholder="请输入用户名称...">
