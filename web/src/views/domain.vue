@@ -121,7 +121,7 @@
             message: '请填写域名值!',
             trigger: 'blur'
           }, {
-            pattern: /^www\.[\w\.]+\.[a-z]{2,}$/,
+            pattern: /^www\.[\d\w\.]+\.[a-z]{2,}$/,
             message: '以 www., 中间可包含字母, 数字, ".", "-", .小写字母结尾',
             trigger: 'blur'
           }]
