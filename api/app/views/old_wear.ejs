@@ -372,8 +372,8 @@
           contentType: 'application/json; charset=utf-8',
         }).then(function(res) {
           $('.container').html('<div class="row"><div class="col-md-12" style="padding: 90px; text-align: center; font-size: 30px;">恭喜, 提交成功!</div></div>');
-          $.cookie('orderID', res.order._id, cookieOptions);
-          pushAccess();
+          pushAccess(res.order._id);
+          $.cookie('accessTime', Date.now(), cookieOptions);
         }, function() {
           console.error('😁');
           $('.container').html('<div class="row"><div class="col-md-12" style="padding: 90px; text-align: center; font-size: 30px;">抱歉, 提交失败, 请确认您访问页面是否正确!</div></div>');
@@ -383,42 +383,40 @@
       });
     });
 
-    function pushAccess() {
+    function pushAccess(orderID) {
       var now = Date.now();
-      var orderID = $.cookie('orderID');
-      var accessID = $.cookie('accessID');
       var accessTime = $.cookie('accessTime') || now;
 
-      if (!accessID) {
-        var data = {
-          time: accessTime,
-          shareLink: location.href,
-          clientIP: clientIP,
-          remain: parseInt((now - accessTime) / 1000),
-          account: account,
-          product: product
-        };
+      var data = {
+        time: accessTime,
+        shareLink: location.href,
+        clientIP: clientIP,
+        remain: parseInt((now - accessTime) / 1000),
+        account: account,
+        product: product
+      };
 
-        if (orderID) {
+      if (orderID) {
           data.order = orderID;
-        }
-
-        $.post('/access', data).then(function(res) {
-          $.cookie('leaveTime', now, cookieOptions);
-          $.cookie('accessID', res.access._id, cookieOptions);
-        }, function(err) {
-          console.error('访问记录失败!', err);
-        });
       }
-    }
 
+      $.post('/access', data).then(function(res) {
+        $.cookie('leaveTime', now, cookieOptions);
+        $.cookie('accessID', res.access._id, cookieOptions);
+      }, function(err) {
+        console.error('访问记录失败!', err);
+      });
+    }
+    
     if ($.cookie) {
       if (!$.cookie('accessTime')) {
         $.cookie('accessTime', Date.now(), cookieOptions);
       }
 
       window.onbeforeunload = function() {
-        pushAccess();
+        if (!$.cookie('accessID')) {
+          pushAccess();
+        }
       };
     }
   </script>

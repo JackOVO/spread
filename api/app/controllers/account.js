@@ -28,6 +28,44 @@ router.get('/:name', (req, res) => {
   });
 });
 
+router.get('/:id/extend', (req, res) => {
+  const _id = req.params.id;
+
+  Account.findOne({ _id }, (err, account) => {
+    if (err) {
+      return res.json(500, { msg: err.message });
+    } else if (!account) {
+      res.json(404, { msg: '不存在的用户!' });
+    } else {
+      res.json({ extend: account.extend || {} });
+    }
+  });
+});
+
+router.put('/:id/extend', (req, res) => {
+  const _id = req.params.id;
+  const body = req.body;
+  const wherestr = { _id };
+  const updatestr = { $set: { extend: body } };
+
+  Account.findOneAndUpdate(
+    wherestr,
+    updatestr,
+    { upsert: true },
+    (err, account) => {
+      if (err) {
+        res.json(500, { msg: err.message });
+      } else {
+        if (account) {
+          res.json({ msg: '账号扩展信息补充成功!', account });
+        } else {
+          res.json(404, { msg: '没有找到该账号!' });
+        }
+      }
+    }
+  );
+});
+
 router.post('/', (req, res) => {
   const _account = new Account(req.body);
 

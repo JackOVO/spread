@@ -30,6 +30,10 @@ const AccountSchema = new Schema({
     enum: ['ACTIVE', 'DISABLED'],
     default: 'ACTIVE'
   },
+  extend: {
+    type: Object,
+    default: {}
+  },
   created: {
     type: Date,
     default: Date.now

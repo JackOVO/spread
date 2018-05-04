@@ -7,6 +7,7 @@ const config = require('../../config/config');
 
 const mongoose = require('mongoose');
 const Domain = mongoose.model('Domain');
+const Account = mongoose.model('Account');
 
 router.get('/', (req, res) => {
   res.render('index', { title: 'API 服务' });
@@ -44,6 +45,7 @@ router.get('/view/:type/:value([/\\w]+)', (req, res) => {
     case 'card':
       co(function*() {
         const token = yield util.assumeRoleRead();
+        const account = yield Account.findOne({ _id: value });
         // TODO: OSS 创建移动至 util 中
         const client = new OSS({
           bucket: config.oss.bucket,
@@ -52,8 +54,7 @@ router.get('/view/:type/:value([/\\w]+)', (req, res) => {
           accessKeySecret: token.credentials.AccessKeySecret,
           stsToken: token.credentials.SecurityToken
         });
-        options.signUrl = client.signatureUrl(value);
-
+        options.signUrl = client.signatureUrl(account.extend.ossPath);
         res.render(view.value, options);
       });
       break;

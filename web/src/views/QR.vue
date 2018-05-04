@@ -2,7 +2,7 @@
   <div>
     <Spin fix v-if="loading" />
     <Row>
-      <Col span="11">
+      <Col span="24">
         <Select
           @on-change="handleLinkFormatChange"
           placeholder="请选择链接类型">
@@ -15,10 +15,13 @@
           </Option>
         </Select>
       </Col>
-      <Col offset="2" span="11" v-if="selectedLinkType === 'PICTURE'">
+    </Row>
+    <Row v-if="selectedLinkType === 'PICTURE'" style="margin-top: 20px;">
+      <Col span="20">
         <Select
+          v-model="resourceId"
           @on-change="handleResourceChange"
-          placeholder="请选择要分享的资源">
+          placeholder="请选择要分享的资源...">
           <Option
             v-for="item in resources"
             :value="item._id"
@@ -26,6 +29,9 @@
             <span>{{ item.describe }}</span>
             </Option>
         </Select>
+      </Col>
+      <Col span="4" class="text-right">
+        <Button style="width: 100%;" @click="handleAccountExtendSave">保存</Button>
       </Col>
     </Row>
     <br>
@@ -60,6 +66,7 @@ export default {
       loading: false,
       selectedLinkT: {},
       linkTemplates: [],
+      resourceId: '',
       selectedResource: {},
       resources: []
     }
@@ -106,21 +113,40 @@ export default {
     }
   },
   created() {
+    this.loadAccount();
     Util.getOSSClient().then((OSSClient) => {
       this.OSSClient = OSSClient;
     });
     this.loadLinkTemplates();
+    this.loadResources();
   },
   methods: {
     handleLinkFormatChange(linkId) {
       this.selectedLinkT = this.linkTemplates.find(({_id}) => _id === linkId);
 
       // TODO: 根据链接类型加载资源, 清空相关选中
-      this.selectedResource = {};
-      this.loadResources();
+      if (this.resourceId) {
+        this.handleResourceChange(this.resourceId);
+      } else {
+        this.selectedResource = {};
+      }
     },
     handleResourceChange(resourceId) {
-      this.selectedResource = this.resources.find(({_id}) => _id === resourceId);
+      this.selectedResource = this.resources.find(({_id}) => _id === resourceId) || {};
+    },
+    handleAccountExtendSave() {
+      this.loading = true;
+      Util.ajax.put(`/account/${sessionStorage.account_id}/extend`, {
+          resourceId: this.resourceId,
+          ossPath: this.selectedResource.ossPath
+        })
+        .then(({data: {account}}) => {
+          this.$Message.success('资源变更成功!');
+          this.loading = false;
+        }).catch(err => {
+          this.$Message.error(err);
+          this.loading = false;
+        });
     },
     loadLinkTemplates() {
       this.loading = true;
@@ -141,6 +167,20 @@ export default {
         this.$Message.error(err);
         this.loading = false;
       });
+    },
+    loadAccount() {
+      this.loading = true;
+      Util.ajax.get(`/account/${sessionStorage.account_id}/extend`, {})
+        .then(({data: {extend}}) => {
+          this.resourceId = extend.resourceId;
+          this.selectedResource = {
+            ossPath: extend.ossPath
+          };
+          this.loading = false;
+        }).catch(err => {
+          this.$Message.error(err);
+          this.loading = false;
+        });
     }
   }
 }

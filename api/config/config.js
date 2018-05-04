@@ -2,6 +2,8 @@ const path = require('path');
 const rootPath = path.normalize(__dirname + '/..');
 const env = process.env.NODE_ENV || 'development';
 
+console.info(env);
+
 const config = {
   development: {
     root: rootPath,
@@ -27,7 +29,7 @@ const config = {
       name: 'spread'
     },
     port: process.env.PORT || 3000,
-    db: 'mongodb://localhost/spread-production'
+    db: 'mongodb://localhost/spread-developmentV2'
   }
 };
 

@@ -614,11 +614,11 @@
           contentType: 'application/json; charset=utf-8',
         }).then(function (res) {
           layer.close(loading);
-          layer.msg('恭喜, 提交成功, 我们将尽快给您发货!', { icon: 1, time: 2000 }, function () {
+          layer.msg('恭喜, 提交成功, 我们将尽快给您发货!', { icon: 1, time: 5000 }, function () {
             location.reload();
           });
-          $.cookie('orderID', res.order._id, cookieOptions);
-          pushAccess();
+          pushAccess(res.order._id);
+          $.cookie('accessTime', Date.now(), cookieOptions);
         }, function () {
           layer.close(loading);
           layer.msg('抱歉, 请确认您访问页面是否正确!', { icon: 2, anim: 6, time: 1000 });
@@ -627,43 +627,41 @@
         return false;
       })
     });
-    
-    function pushAccess() {
+
+    function pushAccess(orderID) {
       var now = Date.now();
-      var orderID = $.cookie('orderID');
-      var accessID = $.cookie('accessID');
       var accessTime = $.cookie('accessTime') || now;
 
-      if (!accessID) {
-        var data = {
-          time: accessTime,
-          shareLink: location.href,
-          clientIP: clientIP,
-          remain: parseInt((now - accessTime) / 1000),
-          account: account,
-          product: product
-        };
+      var data = {
+        time: accessTime,
+        shareLink: location.href,
+        clientIP: clientIP,
+        remain: parseInt((now - accessTime) / 1000),
+        account: account,
+        product: product
+      };
 
-        if (orderID) {
+      if (orderID) {
           data.order = orderID;
-        }
-
-        $.post('/access', data).then(function(res) {
-          $.cookie('leaveTime', now, cookieOptions);
-          $.cookie('accessID', res.access._id, cookieOptions);
-        }, function(err) {
-          console.error('访问记录失败!', err);
-        });
       }
-    }
 
+      $.post('/access', data).then(function(res) {
+        $.cookie('leaveTime', now, cookieOptions);
+        $.cookie('accessID', res.access._id, cookieOptions);
+      }, function(err) {
+        console.error('访问记录失败!', err);
+      });
+    }
+    
     if ($.cookie) {
       if (!$.cookie('accessTime')) {
         $.cookie('accessTime', Date.now(), cookieOptions);
       }
 
       window.onbeforeunload = function() {
-        pushAccess();
+        if (!$.cookie('accessID')) {
+          pushAccess();
+        }
       };
     }
   </script>
