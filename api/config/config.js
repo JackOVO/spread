@@ -47,13 +47,13 @@ config[env].viewMap = {
     value: 'old_wear',
     title: '新★ 正 品 ★',
     content: '新★ 正 品 ★',
-    product: '5ae70de8c4041ce7d90e4372'
+    product: '5ae70de8c4041ce7d90e4372' // 线 5aeb0cda9803f33c670a8dac
   },
   bracelet: {
     value: 'old_bracelet',
     title: '新★ 正 品 ★',
     content: '新★ 正 品 ★',
-    product: '5ae8421a9e4f9d6cd056d4be'
+    product: '5ae8421a9e4f9d6cd056d4be' // 5aeb0cbd9803f33c670a8dab
   },
   card: {
     value: 'card',
