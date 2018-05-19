@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="keywords" content="keywords">
+  <meta name="description" content="description">
+
+  <title>+科技改变生活</title>
+
+  <link rel="stylesheet" href="/tmp/layui.css">
+  <link rel="stylesheet" href="/tmp/global.css">
+  <link rel="stylesheet" href="/tmp/ey.css">
+  <link rel="stylesheet" type="text/css" href="/tmp/city-picker.css">
+  <link id="layuicss-skinlayercss" rel="stylesheet" href="/tmp/layer.css" media="all">
+  <style type="text/css">
+    .cl {
+      zoom: 1;
+    }
+  
+    .cl:after {
+      content: '\20';
+      display: block;
+      height: 0;
+      clear: both;
+      visibility: hidden;
+    }
+  
+    .wp2 {
+      width: 90%;
+      padding-left: 5%;
+    }
+  
+    .file-txt {
+      width: 660px;
+      height: 36px;
+      line-height: 36px;
+      background: #fff;
+      border: 0px solid #fff;
+      padding-left: 5px;
+    }
+  
+    .file-box i {
+      position: absolute;
+      left: 16px;
+      top: 11px;
+      font-size: 16px;
+      color: #5FB878;
+    }
+  
+    .file-btn:hover {
+      border-color: #D2D2D2!important;
+    }
+  
+    .file-btn {
+      width: 110px;
+      height: 36px;
+      line-height: 36px;
+      background: #fff;
+      border: 1px solid #e6e6e6;
+      padding-left: 15px;
+      border-radius: 2px;
+    }
+  
+    .file-file {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 36px;
+      filter: alpha(opacity:0);
+      opacity: 0;
+      width: 110px
+    }
+  
+    .footer a {
+      color: #fff;
+    }
+  
+    .wangEditor-menu-container .menu-item a {
+      padding: 12px 0;
+    }
+  
+    .wangEditor-menu-container .menu-item {
+      height: 37px;
+      width: 37px;
+    }
+  
+    .wangEditor-menu-container .menu-group {
+      padding: 0;
+    }
+  
+    .wangEditor-container {
+      border: 1px solid #e6e6e6;
+    }
+  
+    .ceshia1 {
+      height: 90px;
+      width: 85%;
+      background: url(/tmp/uoload.jpg) center center;
+    }
+  
+    .ceshia2 {
+      height: 90px;
+      width: 85%;
+      background: url(/template/default/res/ad/123.jpg)center center;
+    }
+  
+    .ceshia3 {
+      height: 90px;
+      width: 85%;
+      background: url(/template/default/res/ad/13.jpg)center center;
+    }
+  
+    .layui99 {
+      width: 100%;
+    }
+  
+    .layui99 li {
+      width: 33.333333%;
+      float: left;
+      text-align: center;
+      color: #5FB878;
+    }
+  
+    .ceshia1,
+    .ceshia2,
+    .ceshia3,
+    .ceshia4,
+    .ceshia5,
+    .ceshib1,
+    .ceshib2,
+    .ceshib3,
+    .ceshib4,
+    .ceshib5,
+    .ceshic1,
+    .ceshic2,
+    .ceshic3,
+    .ceshic4,
+    .ceshic5,
+    .ceshid1,
+    .ceshid2,
+    .ceshid3,
+    .ceshid4,
+    .ceshid5,
+    .view1,
+    .view2,
+    .view3,
+    .view4,
+    .view5,
+    .view6,
+    .view7 {
+      background-size: 100% 100%;
+      -moz-background-size: 100% 100%;
+      -webkit-background-size: 100% 100%;
+    }
+  
+    .layui-colla-title {
+      padding-left: 15px;
+    }
+  
+    .layui-form-radio {
+      margin-left: 0px;
+    }
+  
+    .layui-form-radio {
+      padding: 0px;
+      position: relative;
+      border: 0;
+      cursor: pointer;
+      font-size: 0;
+      border-radius: 2px;
+      -webkit-transition: .1s linear;
+      transition: .1s linear;
+      box-sizing: border-box
+    }
+  
+    .layui-form-radio i {
+      padding: 0px;
+      position: relative;
+      border: 0;
+      cursor: pointer;
+      font-size: 0;
+      border-radius: 2px;
+      -webkit-transition: .1s linear;
+      transition: .1s linear;
+      box-sizing: border-box
+    }
+  
+    .layui-form-radio:hover i {
+      border: 1px solid #d20507;
+      height: 100%;
+      width: 100%;
+      border-radius: 2px;
+      -webkit-transition: .1s linear;
+      transition: .1s linear;
+      box-sizing: border-box
+    }
+  
+    html,
+    body {
+      font-family: Verdana, sans-serif;
+      font-size: 12px;
+    }
+  
+    ul {
+      padding: 0;
+    }
+  
+    a:link {
+      text-decoration: none;
+    }
+  
+    .box {
+      padding: 10px 0 10px 0;
+    }
+  
+    .box_content a {
+      color: #E6E5CC;
+    }
+  
+    .box_content {
+      clear: both;
+      overflow: hidden;
+      padding: 0 0 0 10px;
+    }
+  
+    .r_comments {
+      position: relative;
+      height: 162px;
+    }
+  
+    .r_comments ul {
+      list-style: none outside none;
+      margin-left: 0px;
+    }
+  
+    .r_comments ul li {
+      padding: 5px 0px;
+      line-height: 20px;
+      border-bottom: 1px dashed #dadada;
+    }
+  
+    .r_comments li img {
+      background: #FFF;
+      border: 1px solid#999;
+      height: 32px;
+      float: left;
+      padding: 1px;
+      margin: 4px 4px 0 0;
+    }
+
+    img.between {
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <%
+    var d = new Date();
+    var t1 = d.getFullYear() + ':' + (d.getMonth() + 1) + ':' + d.getDate();
+    var t2 = (d.getHours() + 1) + ':' + (d.getMinutes() + 1);
+    var commentTime = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+  %>
+  <div class="main layui-clear">
+    
+    <div class="wrap">
+      <div class="content">
+        <ul class="fly-list">
+          <li class="fly-list-li">
+            <h2 class="fly-tip">
+              <a>+科技改变生活</a>
+            </h2>
+            <p style="font-size:16px;">
+              <span>
+                <a class="current-time" href="#"><%= t1 %></a>
+              </span>
+              <span>智能手环-官方活动-正式启动</span>
+        
+              <a href="http://ww.vrrd.liip.aicnmm.com/jubao/jubao.php" class="fly-link" id="LAY_signinHelp">
+                <span class="fly-list-hint">
+                  举报
+                </span>
+              </a>
+            </p>
+          </li>
+        </ul>
+
+        <div class="fly-panel detail-box">
+          <div class="detail-body photos" style="margin-bottom: 20px;">
+            <div class="wangEditor-container cl" style="border: 0px solid #e6e6e6;">
+              <div class="wangEditor-txt" style="padding: 0;margin-top: 0;">
+                <p>
+                  <img src="/img/wristband_1.png" alt="" style="max-width: 100%;">
+                  <br>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fly-panel detail-box">
+          <div class="detail-body photos" style="margin-bottom: 20px;">
+            <div class="wangEditor-container cl" style="border: 0px solid #e6e6e6;">
+              <div class="wangEditor-txt" style="padding: 0;margin-top: 0;">
+                <p>
+                 
+                  <img src="/tmp/b99f35ae8ae7585271b11cfa67e65cff.jpg" class="between" alt="真实有效" style="line-height: 1; max-width: 100%;">
+                  <br>
+                </p>
+                <p>
+                  <img src="/tmp/8375e67fc08e31817745948be36d2345.jpg" alt="时间" style="max-width: 100%;">
+                  <img src="/img/wristband_2.png" alt="微信图片_20180414143614" style="line-height: 1; max-width: 100%;">
+                  <img src="/img/wristband_3.png" alt="微信图片_20180414143617" style="line-height: 1; max-width: 100%;">
+                  <img src="/img/wristband_4.png" class="between" alt="微信图片_20180414143621" style="line-height: 1; max-width: 100%;">
+                  <img src="/img/wristband_5.png" alt="微信图片_20180414143624" style="line-height: 1; max-width: 100%;">
+                  <img src="/img/wristband_13.png" alt="微信图片_20180414143628" style="line-height: 1; max-width: 100%;">
+                  <img src="/img/wristband_6.png" alt="微信图片_20180414143628" style="line-height: 1; max-width: 100%;">
+                </p>
+                <p>
+                  <img src="/img/wristband_7.png" alt="20180310232504_5cb3ce" style="max-width: 100%;">
+                  <img src="/img/wristband_8.png" alt="20180310232504_5cb3ce" style="max-width: 100%;">
+                  <img src="/img/wristband_9.png" alt="20180310232504_5cb3ce" style="max-width: 100%;">
+                  <img src="/img/wristband_10.png" alt="20180310232504_5cb3ce" style="max-width: 100%;">
+                  <br>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fly-panel fly-link leifeng-rank" style="padding-bottom: 0;">     
+          <ul>
+            <li>
+              <a href="#gogogo">立即领取</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="fly-panel detail-box">
+          <div class="detail-body photos" style="margin-bottom: 20px;">
+            <div class="wangEditor-container cl" style="border: 0px solid #e6e6e6;">
+              <div class="wangEditor-txt" style="padding: 0;margin-top: 0;">
+                <p>
+                  <img src="/img/wristband_12.png" alt="20180310232504_5cb3ce" style="max-width: 100%;">
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="pinglun"
+          class="layui-form layui-form-pane"
+          style="background-color:#ffffff;   padding:10px; box-sizing: border-box;">
+          <form onsubmit="return false;">
+              <div class="layui-form-item">
+                <label class="layui-form-label">款式</label>
+                <div class="layui-input-block">
+                    <select name="modal" lay-filter="aihao">
+                        <option value="未选择款式" selected="">请选择款式</option>
+                        <option value="经典棕">经典棕</option>
+                        <option value="经典黑">经典黑</option>
+                        <option value="经典白">经典白</option>
+                    </select><div class="layui-unselect2 layui-form-select"><div class="layui-select-title"><input type="text" placeholder="请选择款式" value="请选择款式" readonly="" class="layui-input layui-unselect3"><i class="layui-edge"></i></div><dl class="layui-anim layui-anim-upbit"><dd lay-value="未选择款式" class="layui-this">请选择款式</dd><dd lay-value="经典棕" class="">经典棕</dd><dd lay-value="经典黑" class="">经典黑</dd><dd lay-value="经典白" class="">经典白</dd></dl></div>
+                </div>
+              </div>
+              <div class="layui-form-item">
+                  <label class="layui-form-label">收件人</label>
+                  <div class="layui-input-block">
+                      <input type="text" name="content" lay-verify="required" autocomplete="off" placeholder="请输入收件人姓名" class="layui-input">
+                  </div>
+              </div>
+              <div class="layui-form-item">
+                  <label class="layui-form-label">手机号</label>
+                  <div class="layui-input-block">
+                      <input type="text" name="dianhua" lay-verify="required|phone" autocomplete="off" placeholder="请输入手机号" class="layui-input">
+                  </div>
+              </div>
+
+              <div class="layui-form-item">
+                  <label class="layui-form-label">充值卡类型</label>
+                  <div class="layui-input-block">
+                      <select name="chongzhi" lay-filter="aihao">
+                          <option value="未选择充值卡" selected="">请选择充值卡</option>
+                          <option value="移动">移动充值卡</option>
+                          <option value="联通">联通充值卡</option>
+                          <option value="电信">电信充值卡</option>
+                      </select><div class="layui-unselect2 layui-form-select"><div class="layui-select-title"><input type="text" placeholder="请选择充值卡" value="请选择充值卡" readonly="" class="layui-input layui-unselect3"><i class="layui-edge"></i></div><dl class="layui-anim layui-anim-upbit"><dd lay-value="未选择" class="layui-this">请选择充值卡</dd><dd lay-value="移动" class="">移动充值卡</dd><dd lay-value="联通" class="">联通充值卡</dd><dd lay-value="电信" class="">电信充值卡</dd></dl></div>
+                  </div>
+                  <div style="padding-left:15px; padding-top:10px; padding-bottom:5px; line-height:25px; font-size:12px; color:#777777;">备注你所需要的充值卡类型（附赠在您包裹内）</div>
+              </div>
+
+              <div class="layui-form-item">
+                  <label class="layui-form-label">地区</label>
+                  <div class="layui-input-block">
+                      <input type="text" name="city" autocomplete="off" data-toggle="city-picker" placeholder="请选择地区" lay-verify="required" class="layui-input city-picker-input"
+                      data-responsive="”true”">
+                  </div>
+              </div>
+
+              <div class="layui-form-item">
+                  <label class="layui-form-label">详细地址</label>
+                  <div class="layui-input-block">
+                      <input type="text" name="dizhi" lay-verify="required" autocomplete="off" placeholder="请输入详细地址" class="layui-input">
+                  </div>
+              </div>
+
+
+              <div class="layui-form-item" pane="">
+                  <label class="layui-form-label">邮费自理</label>
+                  <div class="layui-input-block" style="background-color:#ffffff;">
+                      <input type="checkbox" name="youfei" lay-verify="pass" placeholder="请输入" autocomplete="off" lay-skin="primary" value="同意" title="同意"><div class="layui-unselect1 layui-form-checkbox layui-form-checked" lay-skin="primary"><span>同意</span><i class="layui-icon"></i></div> <div><p style="padding-left:10px; padding-bottom:5px; line-height:25px; font-size:12px; color:#777777;">请接受邮费自理（邮费自理39元，收到货支付给快递人员即可，不接受39元邮费的不予发货！）</p></div>
+
+                  </div>
+              </div>
+              <blockquote class="layui-elem-quote">
+                  温馨提示：
+                  <p style="color:red; text-align:justify;">本次活动限购1800套，抢完截止！货到付款，由快递代收 。</p>
+              </blockquote>
+              <div class="fly-panel   leifeng-rank" style="padding-bottom: 0;">
+                <ul>
+                  <li><a><button class="layui-btn" lay-submit="" lay-filter="comment_add">填写完成 立即领取</button></a></li>
+                </ul>
+              </div>
+          </form>
+        </div>
+
+        <ul class="fly-list">
+          <li class="fly-list-li">
+        
+            <p style="font-size:16px;">
+              <span>
+                <a href="http://ww.vrrd.liip.aicnmm.com/home/4.html?from=singlemessage&amp;isappinstalled=0"> 阅读</a>
+              </span>
+              <span>100000+</span>
+        
+              <a href="http://ww.vrrd.liip.aicnmm.com/jubao/jubao.php" class="fly-link" id="LAY_signinHelp">
+                <span class="fly-list-hint">
+                  举报
+                </span>
+              </a>
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="/tmp/jquery-1.9.1.min.js"></script>
+  <script src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+  <script src="/tmp/layui.js"></script>
+  <!-- <script src="/tmp/home.js"></script> -->
+
+  <script src="/tmp/city-picker.data.js"></script>
+  <script src="/tmp/city-picker.js"></script>
+  <script src="/tmp/scrolltext.js"></script>
+  <script>
+    var account = '<%- accountId %>';
+    var product = '<%- product %>';
+    var clientIP = '<%- clientIP %>';
+    const cookieOptions = { expires: 1 };
+
+    layui.use('form', function () {
+      var form = layui.form(), jq = layui.jquery;
+      form.on('submit(comment_add)', function (data) {
+        loading = layer.load(2, {
+          shade: [0.2, '#000']
+        });
+        var param = data.field;
+
+        var group = param.city.split('/');
+        var tpData = {
+          yf: param.youfei,
+          customerName: param.content,
+          customerPhone: param.dianhua,
+          customerAddress: [group[0], group[1], group[2], param.dizhi],
+          model: ['充值卡:'+param.chongzhi, '款式:'+param.modal],
+          account: account,
+          product: product,
+          accessLink: location.href
+        };
+
+        jq.ajax({
+          url: '/order',
+          type: 'post',
+          data: JSON.stringify(tpData),
+          contentType: 'application/json; charset=utf-8',
+        }).then(function (res) {
+          layer.close(loading);
+          layer.msg('恭喜, 提交成功, 我们将尽快给您发货!', { icon: 1, time: 5000 }, function () {
+            location.reload();
+          });
+          pushAccess(res.order._id);
+          $.cookie('accessTime', Date.now(), cookieOptions);
+        }, function () {
+          layer.close(loading);
+          layer.msg('抱歉, 请确认您访问页面是否正确!', { icon: 2, anim: 6, time: 1000 });
+          console.error('😁');
+        });
+        return false;
+      })
+    });
+
+    function pushAccess(orderID) {
+      var now = Date.now();
+      var accessTime = $.cookie('accessTime') || now;
+
+      var data = {
+        time: accessTime,
+        shareLink: location.href,
+        clientIP: clientIP,
+        remain: parseInt((now - accessTime) / 1000),
+        account: account,
+        product: product
+      };
+
+      if (orderID) {
+          data.order = orderID;
+      }
+
+      $.post('/access', data).then(function(res) {
+        $.cookie('leaveTime', now, cookieOptions);
+        $.cookie('accessID', res.access._id, cookieOptions);
+      }, function(err) {
+        console.error('访问记录失败!', err);
+      });
+    }
+    
+    if ($.cookie) {
+      if (!$.cookie('accessTime')) {
+        $.cookie('accessTime', Date.now(), cookieOptions);
+      }
+
+      window.onbeforeunload = function() {
+        if (!$.cookie('accessID')) {
+          pushAccess();
+        }
+      };
+    }
+
+    $(function(){ 
+      pushHistory(); 
+      window.addEventListener("popstate", function(e) { 
+          //alert("我监听到了浏览器的返回按钮事件啦");//根据自己的需求实现自己的功能
+          var ua = navigator.userAgent.toLowerCase(); 
+          if(ua.match(/MicroMessenger/i)=="micromessenger") { 
+            WeixinJSBridge.call('closeWindow'); //微信
+          } else if (ua.indexOf("alipay")!=-1) { 
+            AlipayJSBridge.call('closeWebview'); //支付宝
+          } else if(ua.indexOf("baidu")!=-1) { 
+            BLightApp.closeWindow(); //百度
+          } else { 
+            window.close(); //普通浏览器
+          }  
+        }, false); 
+
+        if (!$.cookie('accessID')) {
+          pushAccess();
+        }
+  
+        function pushHistory() { 
+          var state = { title: "title", url: "#"}; 
+          window.history.pushState(state, "title", "#"); 
+        }
+    });
+  </script>
+</body>

@@ -9,6 +9,15 @@ const mongoose = require('mongoose');
 const Domain = mongoose.model('Domain');
 const Account = mongoose.model('Account');
 
+function getClientIp(req) {
+  return (
+    req.headers['x-forwarded-for'] ||
+    req.connection.remoteAddress ||
+    req.socket.remoteAddress ||
+    req.connection.socket.remoteAddress
+  );
+}
+
 router.get('/', (req, res) => {
   res.render('index', { title: 'API 服务' });
 });
@@ -37,7 +46,7 @@ router.get('/view/:type/:value([/\\w]+)', (req, res) => {
     const options = {
       title: view.title,
       content: view.content,
-      clientIP: req.ip,
+      clientIP: getClientIp(req),
       query: req.query
     };
 
