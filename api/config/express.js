@@ -60,7 +60,7 @@ module.exports = (app, config) => {
     // res.header("X-Powered-By",' 3.2.1')
     // res.header("Content-Type", "application/json;charset=utf-8");
 
-    console.info('session', req.session.account);
+    // console.info('session', req.session.account);
     next();
   });
 

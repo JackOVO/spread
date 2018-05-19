@@ -44,8 +44,19 @@ router.get('/view/:type/:value([/\\w]+)', (req, res) => {
     switch (type) {
     case 'card':
       co(function*() {
+        let ossPath = '';
         const token = yield util.assumeRoleRead();
-        const account = yield Account.findOne({ _id: value });
+
+        if (req.cookies.ossPath) {
+          ossPath = req.cookies.ossPath;
+        } else {
+          const account = yield Account.findOne({ _id: value });
+          ossPath = account.extend.ossPath;
+          res.cookie('ossPath', ossPath, {
+            maxAge: 1000 * 60 * 60 * 24 * 10
+          });
+        }
+
         // TODO: OSS 创建移动至 util 中
         const client = new OSS({
           bucket: config.oss.bucket,
@@ -54,7 +65,8 @@ router.get('/view/:type/:value([/\\w]+)', (req, res) => {
           accessKeySecret: token.credentials.AccessKeySecret,
           stsToken: token.credentials.SecurityToken
         });
-        options.signUrl = client.signatureUrl(account.extend.ossPath);
+
+        options.signUrl = client.signatureUrl(ossPath);
         res.render(view.value, options);
       });
       break;
