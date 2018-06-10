@@ -18,7 +18,7 @@
         <DatePicker :value="dateReage" type="daterange" @on-change="handleDateReageChange" split-panels placeholder="筛选时间范围" style="width: 200px"></DatePicker>
       </Col>
       <Col span="16" class="text-right">
-        <Button type="success" @click="handleExport">导出Excel</Button>
+        <Button type="success" @click="handleExport">分组导出Excel</Button>
       </Col>
       <Col span="24" style="margin-top: 20px">
         <Table
