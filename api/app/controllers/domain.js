@@ -4,10 +4,12 @@ const router = express.Router();
 const Domain = mongoose.model('Domain');
 
 router.get('/', (req, res, next) => {
-  Domain.find((err, domain) => {
-    if (err) return next(err);
-    res.json(domain);
-  });
+  Domain.find()
+    .sort({ created: -1 })
+    .exec((err, domain) => {
+      if (err) return next(err);
+      res.json(domain);
+    });
 });
 
 router.get('/:value', (req, res) => {

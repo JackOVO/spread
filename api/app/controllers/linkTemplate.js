@@ -4,10 +4,12 @@ const mongoose = require('mongoose');
 const LinkTemplate = mongoose.model('LinkTemplate');
 
 router.get('/', (req, res, next) => {
-  LinkTemplate.find((err, links) => {
-    if (err) return next(err);
-    res.json(links);
-  });
+  LinkTemplate.find()
+    .sort({ created: -1 })
+    .exec((err, links) => {
+      if (err) return next(err);
+      res.json(links);
+    });
 });
 
 router.get('/:id', (req, res) => {
@@ -60,9 +62,26 @@ router.put('/:id', (req, res) => {
       res.json(500, { msg: err.message });
     } else {
       if (link) {
-        res.json({ msg: '链接修改成功!', link });
+        res.json({ msg: '链接模板修改成功!', link });
       } else {
-        res.json(404, { msg: `没有找到该链接 ${_id}!` });
+        res.json(404, { msg: `没有找到该链接模板 ${_id}!` });
+      }
+    }
+  });
+});
+
+router.delete('/:id', (req, res) => {
+  const _id = req.params.id;
+  const wherestr = { _id };
+
+  LinkTemplate.deleteOne(wherestr, (err, link) => {
+    if (err) {
+      res.json(500, { msg: err.message });
+    } else {
+      if (link) {
+        res.json({ msg: '链接模板删除成功!', link });
+      } else {
+        res.json(404, { msg: `没有找到该链接模板 ${_id}!` });
       }
     }
   });
