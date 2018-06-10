@@ -1,6 +1,7 @@
 <template>
   <Row>
     <Col span="24" class-name="text-right">
+      <Button type="error" @click="handleLinkTemplateDelete">删除</Button>
       <Button type="primary" @click="handleLinkTemplateCreate">创建链接模板</Button>
     </Col>
     <Col span="24" style="height: 20px;"></Col>
@@ -10,7 +11,8 @@
         stripe
         :loading="loading"
         :columns="columns"
-        :data="filterData" />
+        :data="filterData"
+        @on-selection-change="handleTableSelect" />
     </Col>
     <Col>
       <Modal
@@ -31,7 +33,21 @@
             </Select>
           </FormItem>
           <FormItem prop="domain">
-            <Input v-model="form.domain" placeholder="请输入使用的域名..." />
+            <Select v-model="form.domain" placeholder="请选择链接类型...">
+              <Option 
+                v-if="item.status !== 'DISABLE'"
+                v-for="item in domains"
+                :value="item.value"
+                :key="item._id">
+                {{ item.value }}
+                <span style="float:right;color:#ccc;weigth:bold;">{{{
+                    DISABLE: '停用',
+                    GATE: '入口',
+                    TARGET: '目标',
+                    RESOURCE: '资源',
+                  }[item.status]}}</span>
+              </Option>
+            </Select>
           </FormItem>
           <FormItem prop="format">
             <Input v-model="form.format" placeholder="请输入链接解析格式..." />
@@ -80,7 +96,9 @@
            value: false,
            title: "标题",
            loading: true
-         }
+         },
+         selection: [],
+         domains: []
        };
      },
      computed: {
@@ -99,6 +117,16 @@
         this.loading = true;
         Util.ajax.get('/linkTemplate', {}).then(({data}) => {
           this.data = data;
+          this.loading = false;
+        }).catch(err => {
+          this.$Message.error(err);
+          this.loading = false;
+        });
+      },
+      loadDomain: function() {
+        this.loading = true;
+        Util.ajax.get('/domain', {}).then(({data}) => {
+          this.domains = data;
           this.loading = false;
         }).catch(err => {
           this.$Message.error(err);
@@ -131,13 +159,32 @@
           });
         });
       },
+      handleTableSelect: function(selection) {
+        this.selection = selection;
+      },
       handleLinkTemplateCreate: function() {
         this.form = {};
         this.modal.value = true;
+      },
+      handleLinkTemplateDelete: function() {
+        const selection = this.selection[0];
+        this.$Modal.confirm({
+          title: '删除链接模板',
+          content: `确认删除 ${selection.alias} 链接模板吗?`,
+          onOk: () => {
+            Util.ajax.delete(`/linkTemplate/${selection._id}`).then(({data}) => {
+              this.loadData();
+              this.$Message.success(data.msg);
+            }, (err) => {
+              this.$Message.err(err.msg);
+            });
+          }
+        });
       }
     },
     created() {
       this.loadData();
+      this.loadDomain();
     }
    }
 </script>
