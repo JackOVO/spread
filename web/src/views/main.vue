@@ -58,6 +58,10 @@
           :class="menuitemClasses"
           @on-select="hanldeMenuSelectChange">
 
+          <!-- <MenuItem name="chart_index" v-if="role === 'ADMIN'">
+            <Icon type="stats-bars"></Icon>
+            <span>图表</span>
+          </MenuItem> -->
           <MenuItem name="account_index" v-if="role === 'ADMIN'">
             <Icon type="ios-people"></Icon>
             <span>账户管理</span>

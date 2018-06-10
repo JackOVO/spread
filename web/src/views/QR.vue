@@ -23,10 +23,14 @@
           @on-change="handleResourceChange"
           placeholder="请选择要分享的资源...">
           <Option
+            filterable
             v-for="item in resources"
             :value="item._id"
             :key="item._id">
             <span>{{ item.describe }}</span>
+            <span style="float:right;color:#ccc;weigth:bold;">
+              {{ moment(item.changed).format('YYYY-MM-DD HH:mm:ss') }}
+            </span>
             </Option>
         </Select>
       </Col>
@@ -55,6 +59,7 @@
 </template>
 <script>
 import Vue from 'vue';
+import moment from 'moment';
 import VueQRCodeComponent from 'vue-qrcode-component';
 import Util from '../libs/util';
 
@@ -63,6 +68,7 @@ Vue.component('qr-code', VueQRCodeComponent);
 export default {
   data() {
     return {
+      moment,
       loading: false,
       selectedLinkT: {},
       linkTemplates: [],
@@ -160,7 +166,11 @@ export default {
     },
     loadResources() {
       this.loading = true;
-      Util.ajax.get('/resource', {}).then(({data: {resources}}) => {
+      Util.ajax.get('/resource', {
+        params: {
+          account: sessionStorage.role !== 'ADMIN' ? sessionStorage.account_id : ''
+        }
+      }).then(({data: {resources}}) => {
         this.resources = resources;
         this.loading = false;
       }).catch(err => {

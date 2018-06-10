@@ -23,6 +23,21 @@ const otherRouter = {
 
 const appRouter = [
   {
+    path: '/chart',
+    name: 'chart',
+    meta: { title: '图表' },
+    access: 'admin',
+    component: Main,
+    children: [
+      {
+        path: 'index',
+        name: 'chart_index',
+        access: 'admin',
+        component: resolve => require(['./views/chart.vue'], resolve)
+      }
+    ]
+  },
+  {
     path: '/account',
     name: 'account',
     meta: { title: '账户管理' },

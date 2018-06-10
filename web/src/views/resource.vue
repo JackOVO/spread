@@ -10,7 +10,6 @@
       <Button type="error" @click="handleResourceDelete">删除</Button>
     </Col>
     <Col span="3" class-name="text-right">
-      
       <Upload
         action=""
         :before-upload="handleUpload"
@@ -216,7 +215,7 @@ export default {
         params: {
           offset: (this.page.current - 1) * this.page.size,
           size: this.page.size,
-          // account: this.selectedAccountId
+          account: sessionStorage.role !== 'ADMIN' ? sessionStorage.account_id : ''
         }
       }).then(({data: {resources, total}}) => {
         this.data = resources;
