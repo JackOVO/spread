@@ -23,22 +23,33 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/full', (req, res, next) => {
-  const { offset, size, account } = req.query;
+  const { offset, size, account, start, end } = req.query;
   const query = account ? { account } : {};
 
-  Order.count(query, (err, total) => {
-    let Query = Order.find(query);
-    if (offset && size) {
-      Query = Query.skip(offset - 0).limit(size - 0);
-    }
-    Query = Query.sort({ changed: -1 }).populate([
-      {
-        path: 'account',
-        select: '-__v -password -created -status -role'
-      },
-      { path: 'product', select: '-__v -form -introduce' }
-    ]);
+  if (start) {
+    query.changed = { $gte: new Date(start) };
+  }
 
+  if (end) {
+    query.changed = Object.assign(query.changed || {}, {
+      $lte: new Date(`${end} 23:59:59`)
+    });
+  }
+
+  let Query = Order.find(query);
+
+  if (offset && size) {
+    Query = Query.skip(offset - 0).limit(size - 0);
+  }
+  Query = Query.sort({ changed: -1 }).populate([
+    {
+      path: 'account',
+      select: '-__v -password -created -status -role'
+    },
+    { path: 'product', select: '-__v -form -introduce' }
+  ]);
+
+  Order.count(query, (err, total) => {
     Query.exec((err, orders) => {
       if (err) return next(err);
       res.json({ orders, total });

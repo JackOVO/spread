@@ -14,7 +14,10 @@
           </Option>
         </Select>
       </Col>
-      <Col span="20" class="text-right">
+      <Col span="4">
+        <DatePicker :value="dateReage" type="daterange" @on-change="handleDateReageChange" split-panels placeholder="筛选时间范围" style="width: 200px"></DatePicker>
+      </Col>
+      <Col span="16" class="text-right">
         <Button type="success" @click="handleExport">导出Excel</Button>
       </Col>
       <Col span="24" style="margin-top: 20px">
@@ -55,6 +58,8 @@
 
    export default {
      data() {
+       const current = moment().format('YYYY-MM-DD');
+       
        return {
          loading: false,
          exportIng: false,
@@ -113,6 +118,7 @@
         },
          data: [],
          selectedAccountId: '',
+         dateReage: [current, current],
          accounts: [],
          form: {},
          rules: {},
@@ -141,7 +147,9 @@
           params: {
             offset: (this.page.current - 1) * this.page.size,
             size: this.page.size,
-            account: this.selectedAccountId
+            account: this.selectedAccountId,
+            start: this.dateReage[0],
+            end: this.dateReage[1]
           }
         }).then(({data: { orders, total }}) => {
           this.data = orders;
@@ -191,10 +199,20 @@
         this.page.size = size;
         this.loadData();
       },
+      handleDateReageChange: function(reages) {
+        this.dateReage = reages;
+        this.loadData();
+      },
       handleExport: function() {
         this.exportIng = true;
+        const start = this.dateReage[0];
+        const end = this.dateReage[1];
+        
         Util.ajax.get('/order/full', {
-          // params: { account: this.selectedAccountId }
+          params: {
+            start,
+            end
+          }
         }).then(({data: { orders, total }}) => {
           const cols = [];
           const keys = [
@@ -220,8 +238,13 @@
             status: '订单状态'
           }
 
-          const jsonSheet = [title];
+          const group = {};
+
+          // const jsonSheet = [title];
           orders.forEach(item => {
+            const account = `${item.account.name}(${item.account.alias})`;
+            const jsonSheet = group[account] || [title];
+
             let o = {
               customerName: item.customerName,
               customerPhone: item.customerPhone,
@@ -231,7 +254,7 @@
               model: item.model,
               created: Util.formatDate(item.created),
               status: item.status,
-              account: `${item.account.name}(${item.account.alias})`,
+              account
             };
 
             jsonSheet.push(o);
@@ -239,15 +262,24 @@
               const len = `${o[key]}`.replace(/[\u4e00-\u9fa5]/g, (m) => '01').length;
               cols[idx] = cols[idx] || { wch: 11 };
               cols[idx].wch = len > cols[idx].wch ? len : cols[idx].wch;
-            })
+            });
+
+            group[account] = jsonSheet;
           });
 
           const wb = XLSX.utils.book_new();
-          const ws = XLSX.utils.json_to_sheet(jsonSheet);
-          ws['!cols'] = cols;
 
-          XLSX.utils.book_append_sheet(wb, ws, 'SheetJS');
-          XLSX.writeFile(wb, `${moment().format('YYYY-MM-DD')}订单.xlsx`);
+          Object.keys(group).forEach((account) => {
+            const ws = XLSX.utils.json_to_sheet(group[account]);
+            ws['!cols'] = cols;
+            XLSX.utils.book_append_sheet(wb, ws, account);
+          });
+
+          // const allData = Object.keys(group).reduce((all, key) => {
+          //   return all.concat(group[key])
+          // }, []);
+
+          XLSX.writeFile(wb, `${start}到${end}订单.xlsx`);
           this.exportIng = false;
         }).catch(err => {
           console.info(err);
