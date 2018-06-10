@@ -6,7 +6,8 @@
       </div>
     </Spin>
     <Col span="21" class-name="text-right">
-      <Button  @click="handleResourceUpdate">编辑</Button>
+      <Button @click="handleResourceUpdate">编辑</Button>
+      <Button type="error" @click="handleResourceDelete">删除</Button>
     </Col>
     <Col span="3" class-name="text-right">
       
@@ -245,6 +246,24 @@ export default {
         this.$Message.error(err);
         this.loading = false;
       });
+    },
+    handleResourceDelete: function() {
+      if (this.selectedRow) {
+        this.$Modal.confirm({
+          title: '删除资源',
+          content: `确认删除 ${this.selectedRow.describe} 资源吗?`,
+          onOk: () => {
+            Util.ajax.delete(`/resource/${this.selectedRow._id}`).then(({data}) => {
+              this.loadData();
+              this.$Message.success(data.msg);
+            }, (err) => {
+              this.$Message.err(err.msg);
+            });
+          }
+        });
+      } else {
+        this.$Message.info('请选择一项资源');
+      }
     },
     handleTableSelect: function(selection, row) {
       this.selectedRow = row;

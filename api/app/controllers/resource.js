@@ -72,6 +72,23 @@ router.put('/:id', (req, res) => {
   });
 });
 
+router.delete('/:id', (req, res) => {
+  const _id = req.params.id;
+  const wherestr = { _id };
+
+  Resource.deleteOne(wherestr, (err, link) => {
+    if (err) {
+      res.json(500, { msg: err.message });
+    } else {
+      if (link) {
+        res.json({ msg: '资源删除成功!', link });
+      } else {
+        res.json(404, { msg: `没有找到该资源 ${_id}!` });
+      }
+    }
+  });
+});
+
 module.exports = app => {
   app.use('/resource', router);
 };
