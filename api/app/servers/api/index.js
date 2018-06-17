@@ -14,6 +14,7 @@ const organizationController = require('../../controllers/organization');
 const linkTempController = require('../../controllers/linkTemplate');
 const productController = require('../../controllers/product');
 const resourceController = require('../../controllers/resource');
+const viewController = require('../../controllers/view');
 
 const accessRouter = express.Router();
 accessRouter.get('/', accessController.list);
@@ -70,13 +71,20 @@ resourcetRouter.post('/', resourceController.add);
 resourcetRouter.put('/:id', resourceController.update);
 resourcetRouter.delete('/:id', resourceController.delete);
 
+const viewRouter = express.Router();
+viewRouter.get('/card/:accountId', viewController.card);
+viewRouter.get('/:name/:accountId', viewController.product);
+
 module.exports = app => {
   const { login, scope } = authServer;
 
-  router.post('/signin', passport.authenticate('local'), authController.signin);
   router.post('/logout', authController.logout);
+  router.get('/proxy/:load([/\\w]+)', domainController.proxy);
+
+  router.post('/signin', passport.authenticate('local'), authController.signin);
   router.get('/token', login, authController.ossToken);
 
+  router.use('/view', viewRouter);
   router.use('/access', scope, accessRouter);
   router.use('/account', scope, accountRouter);
   router.use('/domain', scope, domainRouter);

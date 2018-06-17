@@ -2,6 +2,20 @@ const mongoose = require('mongoose');
 const Domain = mongoose.model('Domain');
 
 module.exports = {
+  // TODO: 查找规则, 会存放位置, 缓存
+  proxy: (req, res) => {
+    const { load } = req.params;
+
+    Domain.findOne({ status: 'TARGET' }, (err, domain) => {
+      if (err) {
+        return res.json(500, { msg: err.message });
+      } else if (!domain) {
+        res.redirect(302, `http://${load}`);
+      } else {
+        res.redirect(302, `http://${domain.value}/${load}`);
+      }
+    });
+  },
   list: (req, res, next) => {
     Domain.find()
       .sort({ created: -1 })
