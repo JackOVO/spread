@@ -5,13 +5,14 @@ const authServer = require('./auth');
 
 const router = express.Router();
 
-const authController = require('../../controllers/auth.js');
-const accessController = require('../../controllers/access.js');
-const accountController = require('../../controllers/account.js');
-const domainController = require('../../controllers/domain.js');
-const orderController = require('../../controllers/order.js');
-const organizationController = require('../../controllers/organization.js');
+const authController = require('../../controllers/auth');
+const accessController = require('../../controllers/access');
+const accountController = require('../../controllers/account');
+const domainController = require('../../controllers/domain');
+const orderController = require('../../controllers/order');
+const organizationController = require('../../controllers/organization');
 const linkTempController = require('../../controllers/linkTemplate');
+const productController = require('../../controllers/product');
 
 const accessRouter = express.Router();
 accessRouter.get('/', accessController.list);
@@ -55,6 +56,12 @@ linkTempRouter.post('/', linkTempController.add);
 linkTempRouter.put('/:id', linkTempController.update);
 linkTempRouter.delete('/:id', linkTempController.del);
 
+const productRouter = express.Router();
+productRouter.get('/', productController.list);
+productRouter.get('/:name', productController.byName);
+productRouter.post('/', productController.add);
+productRouter.put('/:name', productController.update);
+
 module.exports = app => {
   const { login, scope } = authServer;
 
@@ -68,6 +75,7 @@ module.exports = app => {
   router.use('/order', scope, orderRouter);
   router.use('/organization', scope, organizationRouter);
   router.use('/linkTemplate', scope, linkTempRouter);
+  router.use('/product', scope, productRouter);
 
   app.use(router);
 };
