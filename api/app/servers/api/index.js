@@ -9,6 +9,7 @@ const authController = require('../../controllers/auth.js');
 const accessController = require('../../controllers/access.js');
 const accountController = require('../../controllers/account.js');
 const domainController = require('../../controllers/domain.js');
+const orderController = require('../../controllers/order.js');
 
 const accessRouter = express.Router();
 accessRouter.get('/', accessController.list);
@@ -32,6 +33,13 @@ domainRouter.get('/:value', domainController.byValue);
 domainRouter.post('/', domainController.add);
 domainRouter.put('/:value', domainController.update);
 
+const orderRouter = express.Router();
+orderRouter.get('/', orderController.list);
+orderRouter.get('/full', orderController.fullList);
+orderRouter.get('/:id', orderController.byId);
+orderRouter.post('/', orderController.add);
+orderRouter.put('/:id', orderController.update);
+
 module.exports = app => {
   const { login, scope } = authServer;
 
@@ -42,6 +50,7 @@ module.exports = app => {
   router.use('/access', scope, accessRouter);
   router.use('/account', scope, accountRouter);
   router.use('/domain', scope, domainRouter);
+  router.use('/order', scope, orderRouter);
 
   app.use(router);
 };
