@@ -4,6 +4,7 @@ const env = process.env.NODE_ENV || 'development';
 
 const config = {
   development: {
+    secret: 'learnRestApiwithNickjs',
     root: rootPath,
     app: {
       name: 'spread'
