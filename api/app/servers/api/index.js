@@ -13,6 +13,7 @@ const orderController = require('../../controllers/order');
 const organizationController = require('../../controllers/organization');
 const linkTempController = require('../../controllers/linkTemplate');
 const productController = require('../../controllers/product');
+const resourceController = require('../../controllers/resource');
 
 const accessRouter = express.Router();
 accessRouter.get('/', accessController.list);
@@ -62,6 +63,13 @@ productRouter.get('/:name', productController.byName);
 productRouter.post('/', productController.add);
 productRouter.put('/:name', productController.update);
 
+const resourcetRouter = express.Router();
+resourcetRouter.get('/', resourceController.list);
+resourcetRouter.get('/:id', resourceController.byId);
+resourcetRouter.post('/', resourceController.add);
+resourcetRouter.put('/:id', resourceController.update);
+resourcetRouter.delete('/:id', resourceController.delete);
+
 module.exports = app => {
   const { login, scope } = authServer;
 
@@ -76,6 +84,7 @@ module.exports = app => {
   router.use('/organization', scope, organizationRouter);
   router.use('/linkTemplate', scope, linkTempRouter);
   router.use('/product', scope, productRouter);
+  router.use('/resource', scope, resourcetRouter);
 
   app.use(router);
 };
