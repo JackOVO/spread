@@ -10,9 +10,9 @@ module.exports = {
   },
   scope: (req, res, next) => {
     if (!req.isAuthenticated()) {
-      res.json(401, { errMsg: '需要登录!2' });
+      return res.json(401, { errMsg: '需要登录!2' });
     }
 
-    return next();
+    next();
   }
 };
