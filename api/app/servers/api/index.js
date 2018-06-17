@@ -11,6 +11,7 @@ const accountController = require('../../controllers/account.js');
 const domainController = require('../../controllers/domain.js');
 const orderController = require('../../controllers/order.js');
 const organizationController = require('../../controllers/organization.js');
+const linkTempController = require('../../controllers/linkTemplate');
 
 const accessRouter = express.Router();
 accessRouter.get('/', accessController.list);
@@ -47,6 +48,13 @@ organizationRouter.get('/:name', organizationController.byName);
 organizationRouter.post('/', organizationController.add);
 organizationRouter.put('/:name', organizationController.update);
 
+const linkTempRouter = express.Router();
+linkTempRouter.get('/', linkTempController.list);
+linkTempRouter.get('/:id', linkTempController.byId);
+linkTempRouter.post('/', linkTempController.add);
+linkTempRouter.put('/:id', linkTempController.update);
+linkTempRouter.delete('/:id', linkTempController.del);
+
 module.exports = app => {
   const { login, scope } = authServer;
 
@@ -59,6 +67,7 @@ module.exports = app => {
   router.use('/domain', scope, domainRouter);
   router.use('/order', scope, orderRouter);
   router.use('/organization', scope, organizationRouter);
+  router.use('/linkTemplate', scope, linkTempRouter);
 
   app.use(router);
 };
