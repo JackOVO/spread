@@ -27,14 +27,14 @@ const config = {
       wristband: {
         value: 'old_wristband',
         title: '+科技改变生活',
-        content: '智能手环-官方活动-正式启动 499元智能手表',
+        content: '智能手环-官方活动-正式启动 698元智能手环',
         product: '5afffe9d1afb4b20a8d2e75c'
       },
-      weui: {
-        value: 'weui',
-        title: '+科技改变生活',
-        content: '智能手环-官方活动-正式启动 499元智能手表',
-        product: '5b0001152e733b7f57c2ea28'
+      newWristband: {
+        value: 'wristband',
+        title: '+ 科技改变生活',
+        content: '智能手环-官方活动-正式启动 698元智能手环',
+        product: '5afffe9d1afb4b20a8d2e75c'
       },
       card: {
         value: 'card',
@@ -76,13 +76,13 @@ const config = {
       wristband: {
         value: 'old_wristband',
         title: '+科技改变生活',
-        content: '智能手环-官方活动-正式启动 499元智能手表',
+        content: '智能手环-官方活动-正式启动 698元智能手环',
         product: '5b0001152e733b7f57c2ea28'
       },
-      weui: {
-        value: 'weui',
-        title: '+科技改变生活',
-        content: '智能手环-官方活动-正式启动 499元智能手表',
+      newWristband: {
+        value: 'wristband',
+        title: '+ 科技改变生活',
+        content: '智能手环-官方活动-正式启动 698元智能手环',
         product: '5b0001152e733b7f57c2ea28'
       },
       card: {
