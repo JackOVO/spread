@@ -22,7 +22,7 @@ module.exports = {
     }
 
     if (end) {
-      query.time = Object.assign(query.changed || {}, {
+      query.time = Object.assign(query.time || {}, {
         $lte: new Date(`${end} 23:59:59`)
       });
     }
