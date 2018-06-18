@@ -27,7 +27,7 @@ router.get('/full', (req, res, next) => {
   const query = account ? { account } : {};
 
   if (start) {
-    query.changed = { $gte: new Date(start) };
+    query.changed = { $gte: new Date(`${start} 0:0:0`) };
   }
 
   if (end) {
