@@ -4,6 +4,7 @@ const env = process.env.NODE_ENV || 'development';
 
 const config = {
   development: {
+    secret: 'learnRestApiwithNickjs',
     root: rootPath,
     app: {
       name: 'spread'
@@ -26,7 +27,13 @@ const config = {
       wristband: {
         value: 'old_wristband',
         title: '+科技改变生活',
-        content: '智能手环-官方活动-正式启动 499元智能手表',
+        content: '智能手环-官方活动-正式启动 698元智能手环',
+        product: '5afffe9d1afb4b20a8d2e75c'
+      },
+      newWristband: {
+        value: 'wristband',
+        title: '+ 科技改变生活',
+        content: '智能手环-官方活动-正式启动 698元智能手环',
         product: '5afffe9d1afb4b20a8d2e75c'
       },
       card: {
@@ -69,7 +76,13 @@ const config = {
       wristband: {
         value: 'old_wristband',
         title: '+科技改变生活',
-        content: '智能手环-官方活动-正式启动 499元智能手表',
+        content: '智能手环-官方活动-正式启动 698元智能手环',
+        product: '5b0001152e733b7f57c2ea28'
+      },
+      newWristband: {
+        value: 'wristband',
+        title: '+ 科技改变生活',
+        content: '智能手环-官方活动-正式启动 698元智能手环',
         product: '5b0001152e733b7f57c2ea28'
       },
       card: {

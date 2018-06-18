@@ -1,3 +1,4 @@
+var co = require('co');
 const OSS = require('ali-oss');
 
 const config = require('../config/config');
@@ -37,15 +38,27 @@ const ReadWritePolicy = {
   ]
 };
 
+const assumeRoleRead = function() {
+  return sts.assumeRole(
+    'acs:ram::1286126737392301:role/jkwxobjectfullaccess',
+    ReadPolicy,
+    15 * 60,
+    'session-azhi'
+  );
+};
+
+const OSSClient = function(token) {
+  return new OSS({
+    bucket: config.oss.bucket,
+    region: config.oss.region,
+    accessKeyId: token.credentials.AccessKeyId,
+    accessKeySecret: token.credentials.AccessKeySecret,
+    stsToken: token.credentials.SecurityToken
+  });
+};
+
 module.exports = {
-  assumeRoleRead: function() {
-    return sts.assumeRole(
-      'acs:ram::1286126737392301:role/jkwxobjectfullaccess',
-      ReadPolicy,
-      15 * 60,
-      'session-azhi'
-    );
-  },
+  assumeRoleRead,
   assumeRoleFull: function() {
     return sts.assumeRole(
       'acs:ram::1286126737392301:role/jkwxobjectfullaccess',
@@ -54,14 +67,12 @@ module.exports = {
       'session-azhi'
     );
   },
-  // TODO: OSS 创建公共逻辑抽取
-  getOSSClientWithRead: function() {
-    //     const client = new OSS({
-    //   bucket: 'jk-wx',
-    //   region: 'oss-cn-beijing',
-    //   accessKeyId: token.credentials.AccessKeyId,
-    //   accessKeySecret: token.credentials.AccessKeySecret,
-    //   stsToken: token.credentials.SecurityToken
-    // });
+  OSSClient,
+  getSignatureUrl: function(ossPath, options) {
+    return co(function*() {
+      const token = yield assumeRoleRead();
+      const client = OSSClient(token);
+      return client.signatureUrl(ossPath, options);
+    });
   }
 };

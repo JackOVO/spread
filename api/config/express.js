@@ -1,19 +1,13 @@
-const express = require('express');
 const glob = require('glob');
-
-const favicon = require('serve-favicon');
+const express = require('express');
 const logger = require('morgan');
-const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const session = require('express-session');
 const compress = require('compression');
 const methodOverride = require('method-override');
+const favicon = require('serve-favicon');
 
-// const mongoose = require('mongoose');
-// const config = require('./config');
-
-// mongoose.connect(config.db);
-// const db = mongoose.connection;
+const configureSession = require('./configureSession');
+const configurePassport = require('./configurePassport');
 
 module.exports = (app, config) => {
   const env = process.env.NODE_ENV || 'development';
@@ -26,47 +20,20 @@ module.exports = (app, config) => {
   app.use(favicon(config.root + '/public/img/favicon.ico'));
   app.use(logger('dev'));
   app.use(bodyParser.json());
+  app.use(compress());
   app.use(
     bodyParser.urlencoded({
       extended: true
     })
   );
-  app.use(cookieParser('sessiontest'));
-  app.use(
-    session({
-      secret: 'sessiontest', //与cookieParser中的一致
-      saveUninitialized: false, // 是否自动保存未初始化的会话，建议false
-      resave: false, // 是否每次都重新保存会话，建议false
-      cookie: { maxAge: 6 * 3600 * 1000 }
-      // store: new MongoStore({mongooseConnection: db})
-    })
-  );
-  app.use(compress());
-  app.use(express.static(config.root + '/public'));
+  configureSession(app);
+  configurePassport(app);
   app.use(methodOverride());
+  app.use(express.static(config.root + '/public'));
 
-  app.all('*', function(req, res, next) {
-    // res.header("Access-Control-Allow-Origin", req.headers.origin);
-    // res.header("Access-Control-Allow-Credentials", true);
-    // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type");
-    // res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-    // res.header("X-Powered-By",' 3.2.1')
-    // res.header("Content-Type", "application/json;charset=utf-8");
-
-    // res.header("Access-Control-Allow-Origin", req.headers.origin); //需要显示设置来源
-    // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    // res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
-    // res.header("Access-Control-Allow-Credentials", true); //带cookies
-    // res.header("X-Powered-By",' 3.2.1')
-    // res.header("Content-Type", "application/json;charset=utf-8");
-
-    // console.info('session', req.session.account);
-    next();
-  });
-
-  var controllers = glob.sync(config.root + '/app/controllers/*.js');
-  controllers.forEach(controller => {
-    require(controller)(app);
+  var servers = glob.sync(config.root + '/app/servers/**/index.js');
+  servers.forEach(server => {
+    require(server)(app);
   });
 
   app.use((req, res, next) => {
@@ -75,18 +42,7 @@ module.exports = (app, config) => {
     next(err);
   });
 
-  if (app.get('env') === 'development') {
-    app.use((err, req, res, next) => {
-      res.status(err.status || 500);
-      res.render('error', {
-        message: err.message,
-        error: err,
-        title: 'error'
-      });
-    });
-  }
-
-  app.use((err, req, res, next) => {
+  app.use((err, req, res) => {
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
@@ -97,3 +53,47 @@ module.exports = (app, config) => {
 
   return app;
 };
+
+//
+// const passport = require('passport');
+
+// const LocalStrategy = require('passport-local').Strategy;
+
+// passport.use(
+//   'local',
+//   new LocalStrategy(function(username, password, done) {
+//     console.info('----');
+//     return done(null, { user: 'x' });
+//     // findUser(username, function (err, user) {
+//     //   if (err) {
+//     //     return done(err)
+//     //   }
+//     //   if (!user) {
+//     //     return done(null, false)
+//     //   }
+//     //   if (password !== user.password  ) {
+//     //     return done(null, false)
+//     //   }
+//     //   return done(null, user)
+//     // })
+//   })
+// );
+
+// passport.serializeUser(function(user, done) {
+//   //保存user对象
+//   console.info('serializeUser');
+//   done(null, user); //可以通过数据库方式操作
+// });
+
+// passport.deserializeUser(function(user, done) {
+//   //删除user对象
+//   console.info('deserializeUser');
+//   done(null, user); //可以通过数据库方式操作
+// });
+
+// module.exports = (app, config) => {
+//   app.use(passport.initialize());
+//   app.use(passport.session());
+//
+
+// };
