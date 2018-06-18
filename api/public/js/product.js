@@ -41,12 +41,13 @@ function saveOrder(data) {
     })
     .then(
       function(res) {
-        window.weui.toast('恭喜, 提交成功!', 5000);
+        window.weui.toast('恭喜, 提交成功!', 3000);
         $.cookie(
           'successInfo',
           JSON.stringify({
             name: data.customerName,
-            phone: data.customerPhone
+            phone: data.customerPhone,
+            address: data.customerAddress
           }),
           cookieOptions
         );
@@ -136,12 +137,12 @@ window.$(function() {
           }
         }
 
-        console.info(successInfo, tpData);
-
         if (
           successInfo &&
           successInfo.name === tpData.customerName &&
-          successInfo.phone === tpData.customerPhone
+          successInfo.phone === tpData.customerPhone &&
+          (successInfo.address || []).join('/') ===
+            (tpData.customerAddress || []).join('/')
         ) {
           window.weui.alert('抱歉, 您今天已经提交成功过了!', {
             title: '提交失败'
