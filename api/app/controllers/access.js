@@ -12,28 +12,43 @@ module.exports = {
     });
   },
   fullList: (req, res, next) => {
-    const { offset, size, account } = req.query;
+    const { offset, size, account, start, end } = req.query;
     const offset1 = (offset && offset - 0) || 0;
     const size1 = (size && size - 0) || 101;
     const query = account ? { account } : {};
 
+    if (start) {
+      query.time = { $gte: new Date(`${start} 0:0:0`) };
+    }
+
+    if (end) {
+      query.time = Object.assign(query.changed || {}, {
+        $lte: new Date(`${end} 23:59:59`)
+      });
+    }
+
     Access.count(query, (err, total) => {
-      Access.find(query)
-        .skip(offset1)
-        .limit(size1)
-        .sort({ time: -1 })
-        .populate([
-          {
-            path: 'account',
-            select: '-__v -_id -password -created -status -role'
-          },
-          { path: 'product', select: '-__v -form -introduce' },
-          { path: 'order', select: '_id' }
-        ])
-        .exec((err, access) => {
-          if (err) return next(err);
-          res.json({ access, total });
-        });
+      Access.count(
+        Object.assign({}, query, { order: { $ne: null } }),
+        (err, validTotal) => {
+          Access.find(query)
+            .skip(offset1)
+            .limit(size1)
+            .sort({ time: -1 })
+            .populate([
+              {
+                path: 'account',
+                select: '-__v -_id -password -created -status -role'
+              },
+              { path: 'product', select: '-__v -form -introduce' },
+              { path: 'order', select: '_id' }
+            ])
+            .exec((err, access) => {
+              if (err) return next(err);
+              res.json({ access, total, validTotal });
+            });
+        }
+      );
     });
   },
   byId: (req, res) => {

@@ -13,6 +13,12 @@
         </Option>
       </Select>
     </Col>
+    <Col span="4">
+      <DatePicker :value="dateReage" type="daterange" @on-change="handleDateReageChange" split-panels placeholder="筛选时间范围" style="width: 200px"></DatePicker>
+    </Col>
+    <Col span="16" class="text-right">
+      <Tag type="dot" checkable color="green">今日单数: {{ validTotal }}</Tag>
+    </Col>
     <Col span="24" style="margin-top: 20px">
       <Table
         border
@@ -35,10 +41,13 @@
 </template>
 
 <script>
+  import moment from 'moment';
   import Util from '../libs/util';
 
    export default {
      data() {
+       const current = moment().format('YYYY-MM-DD');
+       
        return {
          role: sessionStorage.role,
          loading: false,
@@ -93,6 +102,8 @@
            sizeOpts: [30, 50, 100]
          },
          data: [],
+         validTotal: 0,
+         dateReage: [current, current],
          selectedAccountId: sessionStorage.account_id,
          accounts: []
        };
@@ -109,11 +120,14 @@
           params: {
             offset: (this.page.current - 1) * this.page.size,
             size: this.page.size,
-            account: this.selectedAccountId
+            account: this.selectedAccountId,
+            start: this.dateReage[0],
+            end: this.dateReage[1]
           }
-        }).then(({data: {access, total}}) => {
+        }).then(({data: {access, total, validTotal}}) => {
           this.data = access;
           this.page.total = total;
+          this.validTotal = validTotal;
           this.loading = false;
         }).catch(err => {
           this.$Message.error(err);
@@ -129,6 +143,10 @@
       },
       handePageChange: function(current) {
         this.page.current = current;
+        this.loadData();
+      },
+      handleDateReageChange: function(reages) {
+        this.dateReage = reages;
         this.loadData();
       },
       handePageSizeChange: function(size) {
