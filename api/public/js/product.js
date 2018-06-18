@@ -88,16 +88,12 @@ function pushAccess(orderID) {
     return;
   } else {
     if ($.cookie('accessID')) {
-      delete data.time;
-      $.ajax(
-        {
-          url: '/access/' + $.cookie('accessID'),
-          type: 'put',
-          data: JSON.stringify(data),
-          contentType: 'application/json; charset=utf-8'
-        },
-        { remain: data.remain }
-      );
+      $.ajax({
+        url: '/access/' + $.cookie('accessID'),
+        type: 'put',
+        data: JSON.stringify({ remain: data.remain }),
+        contentType: 'application/json; charset=utf-8'
+      });
     } else {
       $.post('/access', data).then(function(res) {
         $.cookie('accessID', res.access._id, cookieOptions);
