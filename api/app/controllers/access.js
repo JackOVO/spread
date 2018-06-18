@@ -82,27 +82,31 @@ module.exports = {
   },
   update: (req, res) => {
     const _id = req.params.id;
-    const { order } = req.body;
+    const { remain, order } = req.body;
     const wherestr = { _id };
     const updatestr = {};
 
     if (order) {
       updatestr.order = order;
-
-      Access.findOneAndUpdate(wherestr, updatestr, (err, access) => {
-        if (err) {
-          res.json(500, { msg: err.message });
-        } else {
-          if (access) {
-            res.json({ msg: '访问补充成功!', order });
-          } else {
-            res.json(404, { msg: `没有找到 ${_id} 访问!` });
-          }
-        }
-      });
-    } else {
-      res.json(400, { msg: '缺少 order 参数!' });
     }
+    if (remain) {
+      updatestr.remain = remain;
+    }
+    if (!order && !remain) {
+      return res.json(400, { msg: '缺少 order 或 remain 参数!' });
+    }
+
+    Access.findOneAndUpdate(wherestr, updatestr, (err, access) => {
+      if (err) {
+        res.json(500, { msg: err.message });
+      } else {
+        if (access) {
+          res.json({ msg: '访问补充成功!', order, remain });
+        } else {
+          res.json(404, { msg: `没有找到 ${_id} 访问!` });
+        }
+      }
+    });
   }
 };
 

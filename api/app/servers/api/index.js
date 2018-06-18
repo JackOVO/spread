@@ -21,8 +21,8 @@ accessRouter.get('/', accessController.list);
 accessRouter.get('/full', accessController.fullList);
 accessRouter.get('/:id', accessController.byId);
 accessRouter.get('/full/:id', accessController.fullById);
-accessRouter.post('/', accessController.add);
-accessRouter.put('/:id', accessController.update);
+// accessRouter.post('/', accessController.add);
+// accessRouter.put('/:id', accessController.update);
 
 const accountRouter = express.Router();
 accountRouter.get('/', accountController.list);
@@ -42,7 +42,7 @@ const orderRouter = express.Router();
 orderRouter.get('/', orderController.list);
 orderRouter.get('/full', orderController.fullList);
 orderRouter.get('/:id', orderController.byId);
-orderRouter.post('/', orderController.add);
+// orderRouter.post('/', orderController.add);
 orderRouter.put('/:id', orderController.update);
 
 const organizationRouter = express.Router();
@@ -78,8 +78,11 @@ viewRouter.get('/:name/:accountId', viewController.product);
 module.exports = app => {
   const { login, scope } = authServer;
 
+  router.post('/order', orderController.add);
   router.post('/logout', authController.logout);
   router.get('/proxy/:load([/\\w]+)', domainController.proxy);
+  router.post('/access', accessController.add);
+  router.put('/access/:id', accessController.update);
 
   router.post('/signin', passport.authenticate('local'), authController.signin);
   router.get('/token', login, authController.ossToken);

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <title>WeUI</title>
+
+    <link
+      rel="stylesheet"
+      href="https://res.wx.qq.com/open/libs/weui/1.1.2/weui.min.css">
+    <link rel="stylesheet" href="/css/city-picker.css">
+  </head>
+  <body>
+    <article class="weui-article">
+      <h1>大标题</h1>
+      <section>
+        <section>
+          <p><img src="http://diff22.cn/hw-wristband/1.png" alt=""></p>
+        </section>
+        <section>
+          <p>
+            <img src="http://diff22.cn/hw-wristband/2.png">
+            <img src="http://diff22.cn/hw-wristband/5.png">
+            <img src="http://diff22.cn/hw-wristband/13.png">
+            <img src="http://diff22.cn/hw-wristband/6.png">
+          </p>
+          <p>
+            <img src="http://diff22.cn/hw-wristband/7.png">
+            <img src="http://diff22.cn/hw-wristband/8.png">
+            <img src="http://diff22.cn/hw-wristband/9.png">
+            <img src="http://diff22.cn/hw-wristband/10.png">
+            <img src="http://diff22.cn/hw-wristband/11.png">
+          </p>
+        </section>
+        <section><p><img src="http://diff22.cn/hw-wristband/yf.png"></p></section>
+      </section>
+    </article>
+
+    <div id="form">
+      <div class="weui-cells weui-cells_form">
+        <div class="weui-cell weui-cell_select weui-cell_select-after">
+          <div class="weui-cell__hd">
+              <label for="" class="weui-label">款式</label>
+          </div>
+          <div class="weui-cell__bd">
+              <select class="weui-select" name="modal">
+                <option value="经典棕" selected="">经典棕</option>
+                <option value="经典黑">经典黑</option>
+                <option value="经典白">经典白</option>
+              </select>
+          </div>
+        </div>
+        <div class="weui-cell">
+          <div class="weui-cell__hd"><label class="weui-label">收件人</label></div>
+          <div class="weui-cell__bd">
+            <input
+              name="name"
+              required
+              type="text"
+              pattern="REG_NAME"
+              class="weui-input"
+              autocomplete="off"
+              placeholder="请输入收件人姓名"
+              emptyTips="请输入收件人姓名"
+              notMatchTips="请输入正确的收件人姓名" />
+          </div>
+        </div>
+        <div class="weui-cell">
+          <div class="weui-cell__hd">
+            <label class="weui-label">手机号</label>
+          </div>
+          <div class="weui-cell__bd">
+            <input
+              name="phone"
+              required
+              type="tel"
+              pattern="REG_PHONE"
+              class="weui-input"
+              autocomplete="off"
+              placeholder="请输入手机号"
+              emptyTips="请输入手机号"
+              notMatchTips="请输入有效的手机号" />
+          </div>
+        </div>
+        <div class="weui-cell weui-cell_select weui-cell_select-after">
+          <div class="weui-cell__hd">
+            <label for="" class="weui-label">充值卡</label>
+          </div>
+          <div class="weui-cell__bd">
+            <select class="weui-select" name="refillCard">
+              <option value="移动" selected="">移动充值卡</option>
+              <option value="联通">联通充值卡</option>
+              <option value="电信">电信充值卡</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="weui-cells__tips">你所需要的充值卡类型（附赠在您包裹内）</div>
+
+      <div class="weui-cells weui-cells_form" style="overflow: initial;">
+        <div class="weui-cell weui-cell_select weui-cell_select-after" style="position: relative;">
+          <div class="weui-cell__hd"><label class="weui-label">地区</label></div>
+          <div class="weui-cell__bd">
+            <input
+              readonly
+              required
+              id="city-picker"
+              name="city"
+              type="text"
+              class="weui-select"
+              autocomplete="off"
+              placeholder="请选择省市区"
+              emptyTips="请选择省市区">
+          </div>
+        </div>
+        <div class="weui-cell">
+          <div class="weui-cell__hd"><label class="weui-label">地址</label></div>
+          <div class="weui-cell__bd">
+            <input
+              required
+              pattern="REG_ADDRESS"
+              name="address"
+              type="text"
+              class="weui-input"
+              autocomplete="off"
+              placeholder="请输入详细地址"
+              emptyTips="请输入详细地址"
+              notMatchTips="请输入有效的详细地址" />
+          </div>
+        </div>
+      </div>
+
+      <label for="agree" class="weui-agree">
+      <input
+        name="agree"
+        required
+        id="agree"
+        type="checkbox"
+        class="weui-agree__checkbox"
+        tips="请接受邮费自理">
+        <span class="weui-agree__text">
+          接受邮费自理, 邮费自理26-39元，偏远地区最多不超39元, 收到货支付给快递人员即可！
+        </span>
+      </label>
+    </div>
+
+    <div class="weui-panel weui-panel_access">
+      <div class="weui-panel__bd">
+        <div class="weui-media-box weui-media-box_text">
+          <h4 class="weui-media-box__title">温馨提示</h4>
+          <p class="weui-media-box__desc">
+            1. 请确认地址和电话是否正确,
+          </p>
+          <p class="weui-media-box__desc">若是您所在偏远乡镇无官方快递站点，能接受到官方站点自取再提交订单，避免快递无法送达您手中。</p>
+        </div>
+        <div class="weui-media-box weui-media-box_text">
+          <p class="weui-media-box__desc">2. 厂家为宣传好评扩大影响，特此举办限时免费体验的活动，为防止快递不给派送私自扣留,</p>
+          <p class="weui-media-box__desc">特采取到付运费自理+贵重物品保价的快递方式。为答谢您参与本次活动, 厂家会在包裹内附赠一张五十元电话卡。</p>
+        </div>
+        <div class="weui-media-box weui-media-box_text">
+          <p class="weui-media-box__desc">
+            3. 地址填写提交一次即可 ，切勿重复填写，影响发货速度或漏发！
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <a id="confirm" href="javascript:;" class="weui-btn weui-btn_primary">立即领取</a>
+
+    <div class="weui-footer">
+      <p>&nbsp;</p>
+      <p class="weui-footer__links" style="text-align: right;">
+        <a href="javascript:home();" class="weui-footer__link" style="font-size: 16px;">举报</a>
+      </p>
+      <p>&nbsp;</p>
+      <p class="weui-footer__text">Copyright &copy; 2018-2018 north slope</p>
+    </div>
+
+    <script type="text/javascript" >
+      window.account = '<%- accountId %>';
+      window.product = '<%- product %>';
+      window.clientIP = '<%- clientIP %>';
+    </script>
+    <script
+      type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.1.3/weui.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+
+    <script type="text/javascript" src="/js/city-picker.data.min.js"></script>
+    <script type="text/javascript" src="/js/city-picker.min.js"></script>
+    <script type="text/javascript" src="/js/product.js"></script>
+  </body>
+</html>
