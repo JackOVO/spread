@@ -74,15 +74,15 @@ const config = {
         product: '5aeb0cbd9803f33c670a8dab'
       },
       wristband: {
-        value: 'old_wristband',
-        title: '+科技改变生活',
-        content: '智能手环-官方活动-正式启动 698元智能手环',
+        value: 'wristband',
+        title: '+ 科技改变生活',
+        content: '华为科技智能手环',
         product: '5b0001152e733b7f57c2ea28'
       },
       newWristband: {
-        value: 'wristband',
-        title: '+ 科技改变生活',
-        content: '智能手环-官方活动-正式启动 698元智能手环',
+        value: 'old_wristband',
+        title: '+科技改变生活',
+        content: '华为科技智能手环',
         product: '5b0001152e733b7f57c2ea28'
       },
       card: {
