@@ -87,6 +87,7 @@ function pushAccess(orderID) {
     return;
   } else {
     if ($.cookie('accessID')) {
+      delete data.time;
       $.ajax(
         {
           url: '/access/' + $.cookie('accessID'),
