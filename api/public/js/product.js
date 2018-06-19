@@ -152,6 +152,9 @@ window.$(function() {
     );
   });
 
+  window.onbeforeunload = function() {
+    pushAccess();
+  };
   window.history.pushState({ title: 'title', url: '#' }, 'title', '#');
   window.addEventListener(
     'popstate',
@@ -170,9 +173,4 @@ window.$(function() {
     },
     false
   );
-
-  window.onbeforeunload = function() {
-    pushAccess();
-    window.alert('1');
-  };
 });
