@@ -52,21 +52,21 @@ const appRouter = [
       }
     ]
   },
-  {
-    path: '/oaccount',
-    name: 'oaccount',
-    meta: { title: '组织账户' },
-    access: 'admin',
-    component: Main,
-    children: [
-      {
-        path: 'index',
-        name: 'oaccount_index',
-        access: 'admin',
-        component: resolve => require(['./views/oaccount/index.vue'], resolve)
-      }
-    ]
-  },
+  // {
+  //   path: '/oaccount',
+  //   name: 'oaccount',
+  //   meta: { title: '组织账户' },
+  //   access: 'admin',
+  //   component: Main,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       name: 'oaccount_index',
+  //       access: 'admin',
+  //       component: resolve => require(['./views/oaccount/index.vue'], resolve)
+  //     }
+  //   ]
+  // },
   {
     path: '/product',
     name: 'product',
