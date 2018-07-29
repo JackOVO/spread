@@ -113,7 +113,6 @@ window.$(function() {
   $('#city-picker').citypicker();
   window.weui.form.checkIfBlur('#form', { regexp: regexp });
   $('#confirm').click(function() {
-    a.a = 1;
     window.weui.form.validate(
       '#form',
       function(error) {
