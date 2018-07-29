@@ -112,8 +112,8 @@ window.$(function() {
 
   $('#city-picker').citypicker();
   window.weui.form.checkIfBlur('#form', { regexp: regexp });
-
   $('#confirm').click(function() {
+    a.a = 1;
     window.weui.form.validate(
       '#form',
       function(error) {
@@ -152,27 +152,27 @@ window.$(function() {
     );
   });
 
-  window.onbeforeunload = function() {
-    // pushAccess();
-  };
-  window.history.pushState({ title: 'title', url: '#' }, 'title', '#');
-  window.addEventListener(
-    'popstate',
-    function() {
-      //alert("我监听到了浏览器的返回按钮事件啦");//根据自己的需求实现自己的功能
-      var ua = navigator.userAgent.toLowerCase();
-      if (ua.match(/MicroMessenger/i) == 'micromessenger') {
-        window.WeixinJSBridge.call('closeWindow'); //微信
-      } else if (ua.indexOf('alipay') != -1) {
-        window.AlipayJSBridge.call('closeWebview'); //支付宝
-      } else if (ua.indexOf('baidu') != -1) {
-        window.BLightApp.closeWindow(); //百度
-      } else {
-        window.close(); //普通浏览器
-      }
-    },
-    false
-  );
+  // window.onbeforeunload = function() {
+  // pushAccess();
+  // };
+  // window.history.pushState({ title: 'title', url: '#' }, 'title', '#');
+  // window.addEventListener(
+  //   'popstate',
+  //   function() {
+  //     //alert("我监听到了浏览器的返回按钮事件啦");//根据自己的需求实现自己的功能
+  //     var ua = navigator.userAgent.toLowerCase();
+  //     if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+  //       window.WeixinJSBridge.call('closeWindow'); //微信
+  //     } else if (ua.indexOf('alipay') != -1) {
+  //       window.AlipayJSBridge.call('closeWebview'); //支付宝
+  //     } else if (ua.indexOf('baidu') != -1) {
+  //       window.BLightApp.closeWindow(); //百度
+  //     } else {
+  //       window.close(); //普通浏览器
+  //     }
+  //   },
+  //   false
+  // );
 
   pushAccess();
 });

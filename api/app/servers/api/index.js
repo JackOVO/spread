@@ -7,6 +7,7 @@ const router = express.Router();
 
 const authController = require('../../controllers/auth');
 const accessController = require('../../controllers/access');
+const clienterrorController = require('../../controllers/clienterror');
 const accountController = require('../../controllers/account');
 const domainController = require('../../controllers/domain');
 const orderController = require('../../controllers/order');
@@ -47,9 +48,18 @@ orderRouter.put('/:id', orderController.update);
 
 const organizationRouter = express.Router();
 organizationRouter.get('/', organizationController.list);
+// organizationRouter.get('/accounts/:name', organizationController.account);
+// organizationRouter.get('/accounts', organizationController.accounts);
 organizationRouter.get('/:name', organizationController.byName);
 organizationRouter.post('/', organizationController.add);
+// organizationRouter.post('/accounts', organizationController.addAccount);
+organizationRouter.put(
+//   '/accounts/:id/extend',
+//   organizationController.updateAccountExtend
+// );
+// organizationRouter.put('/accounts/:name', organizationController.updateAccount);
 organizationRouter.put('/:name', organizationController.update);
+// organizationRouter.delete('/accounts/:name', organizationController.delAccount);
 
 const linkTempRouter = express.Router();
 linkTempRouter.get('/', linkTempController.list);
@@ -82,6 +92,8 @@ module.exports = app => {
   router.post('/logout', authController.logout);
   router.get('/proxy/:load([/\\w]+)', domainController.proxy);
   router.post('/access', accessController.add);
+  router.get('/clienterror', clienterrorController.list);
+  router.post('/clienterror', clienterrorController.add);
   router.put('/access/:id', accessController.update);
 
   router.post('/signin', passport.authenticate('local'), authController.signin);

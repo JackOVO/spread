@@ -205,5 +205,24 @@
     <script type="text/javascript" src="/js/city-picker.data.min.js"></script>
     <script type="text/javascript" src="/js/city-picker.min.js"></script>
     <script type="text/javascript" src="/js/product.js"></script>
+    <script>
+      window.onerror = function(message, source, lineno, colno, error) {
+        var nav = window.navigator || {};
+        var errObj = {
+          message: message,
+          source: source,
+          lineno_colno: lineno + '_' + colno,
+          error: error
+        };
+        var navObj = {
+          ip: window.clientIP,
+          name_codeName_version: nav.appName + '_' + navigator.appCodeName + '_' + nav.appVersion,
+          platform: nav.platform,
+          userAgent: nav.userAgent
+        };
+
+        $.post('/clienterror', { nav: navObj, error: errObj });
+       }
+    </script>
   </body>
 </html>
