@@ -53,7 +53,7 @@ organizationRouter.get('/', organizationController.list);
 organizationRouter.get('/:name', organizationController.byName);
 organizationRouter.post('/', organizationController.add);
 // organizationRouter.post('/accounts', organizationController.addAccount);
-organizationRouter.put(
+// organizationRouter.put(
 //   '/accounts/:id/extend',
 //   organizationController.updateAccountExtend
 // );
