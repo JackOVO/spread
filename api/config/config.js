@@ -76,13 +76,13 @@ const config = {
       wristband: {
         value: 'wristband',
         title: '+ 科技改变生活',
-        content: '华为科技智能手环',
+        content: '荣耀科技智能手环',
         product: '5b0001152e733b7f57c2ea28'
       },
       newWristband: {
         value: 'old_wristband',
         title: '+科技改变生活',
-        content: '华为科技智能手环',
+        content: '荣耀科技智能手环',
         product: '5b0001152e733b7f57c2ea28'
       },
       card: {
