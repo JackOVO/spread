@@ -278,6 +278,7 @@
         <div class="slot"></div>
         <div class="footer">
           <button id="submit">提交</button>
+          <div style="text-align: right;"><a href="javascript:alert('举报成功');" style="text-decoration: none;">举报</a></div>
         </div>
       </div>
     </div>
@@ -407,44 +408,65 @@
         console.error('访问记录失败!', err);
       });
     }
+
+    pushAccess();
     
-    if ($.cookie) {
-      if (!$.cookie('accessTime')) {
-        $.cookie('accessTime', Date.now(), cookieOptions);
-      }
+    // if ($.cookie) {
+    //   if (!$.cookie('accessTime')) {
+    //     $.cookie('accessTime', Date.now(), cookieOptions);
+    //   }
 
-      window.onbeforeunload = function() {
-        if (!$.cookie('accessID')) {
-          pushAccess();
-        }
-      };
-    }
+    //   window.onbeforeunload = function() {
+    //     if (!$.cookie('accessID')) {
+    //       pushAccess();
+    //     }
+    //   };
+    // }
 
-    $(function(){ 
-      pushHistory(); 
-      window.addEventListener("popstate", function(e) { 
-          //alert("我监听到了浏览器的返回按钮事件啦");//根据自己的需求实现自己的功能
-          var ua = navigator.userAgent.toLowerCase(); 
-          if(ua.match(/MicroMessenger/i)=="micromessenger") { 
-            WeixinJSBridge.call('closeWindow'); //微信
-          } else if (ua.indexOf("alipay")!=-1) { 
-            AlipayJSBridge.call('closeWebview'); //支付宝
-          } else if(ua.indexOf("baidu")!=-1) { 
-            BLightApp.closeWindow(); //百度
-          } else { 
-            window.close(); //普通浏览器
-          }  
-        }, false); 
+    // $(function(){ 
+    //   pushHistory(); 
+    //   window.addEventListener("popstate", function(e) { 
+    //       //alert("我监听到了浏览器的返回按钮事件啦");//根据自己的需求实现自己的功能
+    //       var ua = navigator.userAgent.toLowerCase(); 
+    //       if(ua.match(/MicroMessenger/i)=="micromessenger") { 
+    //         WeixinJSBridge.call('closeWindow'); //微信
+    //       } else if (ua.indexOf("alipay")!=-1) { 
+    //         AlipayJSBridge.call('closeWebview'); //支付宝
+    //       } else if(ua.indexOf("baidu")!=-1) { 
+    //         BLightApp.closeWindow(); //百度
+    //       } else { 
+    //         window.close(); //普通浏览器
+    //       }  
+    //     }, false); 
 
-        if (!$.cookie('accessID')) {
-          pushAccess();
-        }
+    //     if (!$.cookie('accessID')) {
+    //       pushAccess();
+    //     }
   
-        function pushHistory() { 
-          var state = { title: "title", url: "#"}; 
-          window.history.pushState(state, "title", "#"); 
-        }
-    });
+    //     function pushHistory() { 
+    //       var state = { title: "title", url: "#"}; 
+    //       window.history.pushState(state, "title", "#"); 
+    //     }
+    // });
+  </script>
+  <script>
+    window.onerror = function(message, source, lineno, colno, error) {
+      var nav = window.navigator || {};
+      var errObj = {
+        message: message,
+        source: source,
+        lineno_colno: lineno + '_' + colno,
+        error: error
+      };
+      var navObj = {
+        ip: window.clientIP,
+        name_codeName_version: nav.appName + '_' + navigator.appCodeName + '_' + nav.appVersion,
+        platform: nav.platform,
+        userAgent: nav.userAgent
+      };
+
+      $.post('/clienterror', { nav: navObj, error: errObj });
+      }
   </script>
 </body>
 </html>
