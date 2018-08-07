@@ -170,7 +170,7 @@
             4. 识别二维码添加客服微信, 收货好评后有精美礼品赠送.
           </p>
           <p>
-            <img style="width:100%;" src="http://diff22.cn/QR/serviceqr.png">
+            <img id="qrimg" style="width:100%;" src="http://diff22.cn/QR/serviceqr.png">
           </p>
         </div>
       </div>
@@ -204,6 +204,7 @@
     <script type="text/javascript" src="/js/city-picker.min.js"></script>
     <script type="text/javascript" src="/js/product.js"></script>
     <script>
+      $('#qrimg').attr('src', 'http://diff22.cn/QR/serviceqr.png?t=' + new Date().getTime());
       window.onerror = function(message, source, lineno, colno, error) {
         var nav = window.navigator || {};
         var errObj = {
